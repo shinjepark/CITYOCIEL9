@@ -1311,6 +1311,35 @@ footer .top .logo img{filter:none!important}
 /* ====OVERRIDE-END==== */
 
 
+/* ============================================================
+   [2026-09-24] 모바일 상단바 PC화 · 히어로 정리
+   ============================================================ */
+
+/* ---------- 모바일 상단바 : PC와 동일 (투명 → 스크롤 시 네이비) ---------- */
+@media (max-width:1081px){
+  .header_m{
+    background:transparent!important;border-bottom-color:transparent!important;
+    -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+    transition:background .45s ease,border-color .45s ease;
+  }
+  .header_m.solid{
+    background:rgba(5,16,44,.66)!important;
+    border-bottom-color:rgba(255,255,255,.16)!important;
+  }
+  /* 햄버거 펼친 메뉴도 검정 → 네이비 */
+  .menuwrap{background:rgba(5,16,44,.97)!important}
+  .menuwrap li.menu_head,.menuwrap .menu_body a{color:#fff}
+  /* 회전 원형 로고 : 아래로 내려 상단 로고와 겹침 해소 */
+  .mainVisual .circle_open{top:54%!important}
+}
+
+/* ---------- 히어로 정리 : SKIP·긴 선·SCROLL·하단 애니 로고 제거 ---------- */
+.skip_btn,.top_line,.mainVisual .scr{display:none!important}
+.mainVisual .slogan{display:none!important}
+
+/* ====OVERRIDE-END==== */
+
+
 </style>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="시티오씨엘 9단지 오션파크뷰">
@@ -1381,8 +1410,7 @@ footer .top .logo img{filter:none!important}
             <li><a data-spy="p-intro-premium" href="#p-intro-premium">프리미엄</a></li>
             <li><a data-spy="p-intro-map" href="#p-intro-map">오시는길</a></li>
         </ul></li>
-        
-        
+
         <li><ul class="sub-menu">
             <li><a data-spy="p-danji-danji_design" href="#p-danji-danji_design">단지설계</a></li>
             <li><a data-spy="p-danji-danji_layout" href="#p-danji-danji_layout">단지배치도</a></li>
@@ -1509,30 +1537,15 @@ footer .top .logo img{filter:none!important}
     <ul class="mainSlider">
       <li class="slideCon slideCon01 active">
         <div class="bg"></div>
-        <div class="slogan">
-          <img src="images/mainVisual_slogan_01.png" class="PC_V" alt="시티오씨엘 그랜드 오픈">
-          <img src="images/mainVisual_slogan_01_m.png" class="MB_V" alt="시티오씨엘 그랜드 오픈">
-        </div>
       </li>
       <li class="slideCon slideCon02">
         <div class="bg"></div>
-        <div class="slogan">
-          <img src="images/mainVisual_slogan_02.png" class="PC_V" alt="시티오씨엘">
-          <img src="images/mainVisual_slogan_02_m.png" class="MB_V" alt="시티오씨엘">
-        </div>
       </li>
       <li class="slideCon slideCon03">
         <div class="bg"></div>
-        <div class="slogan">
-          <img src="images/mainVisual_slogan_03.png" class="PC_V" alt="시티오씨엘">
-          <img src="images/mainVisual_slogan_03_m.png" class="MB_V" alt="시티오씨엘">
-        </div>
       </li>
     </ul>
 
-
-
-    <div class="top_line"></div>
     <div class="main_logo"><img src="images/main_logo.png" alt="시티오씨엘"></div>
 
     <div class="circle_open">
@@ -1547,13 +1560,11 @@ footer .top .logo img{filter:none!important}
       </div>
     </div>
 
-    <button class="skip_btn" id="skipBtn" type="button">SKIP</button>
-
     <div class="hero_meta">
       <span class="idx" id="heroIdx">01</span>
       <span>/ 03</span>
     </div>
-    <div class="scr">SCROLL<span></span></div>
+    
   </section>
 
   <!-- ABOUT -->
@@ -2725,6 +2736,18 @@ footer .top .logo img{filter:none!important}
   window.addEventListener('load',sync);
   setTimeout(sync,600); setTimeout(sync,1800); setTimeout(sync,3200);
   sync();
+})();
+
+/* ============================================================
+   모바일 상단바 : PC와 동일하게 스크롤 시 네이비 배경
+   ============================================================ */
+(function(){
+  var hm=document.querySelector('.header_m'); if(!hm)return;
+  function s(){ hm.classList.toggle('solid',(window.pageYOffset||document.documentElement.scrollTop||0)>80); }
+  window.addEventListener('scroll',s,{passive:true});
+  window.addEventListener('resize',s);
+  window.addEventListener('load',s);
+  setTimeout(s,400); setTimeout(s,1600); s();
 })();
 
 </script>
