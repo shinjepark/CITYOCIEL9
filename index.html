@@ -1392,6 +1392,14 @@ footer .top .logo img{filter:none!important}
 /* ====OVERRIDE-END==== */
 
 
+/* ============================================================
+   [2026-09-24] 이미지 공간 미리 확보 → 앵커 스크롤 어긋남 방지
+   ============================================================ */
+img[width][height]{height:auto}
+
+/* ====OVERRIDE-END==== */
+
+
 </style>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="시티오씨엘 9단지 오션파크뷰">
@@ -1437,7 +1445,7 @@ footer .top .logo img{filter:none!important}
 <!-- ===== header (PC) ===== -->
 <header id="header">
   <div class="header-inner">
-    <h1 class="brand"><a href="#top" aria-label="시티오씨엘 홈"><img src="images/logo.png" alt="시티오씨엘"></a></h1>
+    <h1 class="brand"><a href="#top" aria-label="시티오씨엘 홈"><img src="images/logo.png" alt="시티오씨엘" width="359" height="50"></a></h1>
     <nav id="nav" aria-label="주메뉴">
       <ul class="gnb">
           <li data-sub="0" data-spy-group="0"><a data-spy="p-intro-index" href="#p-intro-index">사업안내</a></li>
@@ -1494,13 +1502,13 @@ footer .top .logo img{filter:none!important}
 <div class="mobileMenu" id="mobileMenu">
   <div class="underlayer" data-close></div>
   <div class="menuwrap">
-    <div class="logo_w"><img src="images/logo.png" alt="시티오씨엘"></div>
+    <div class="logo_w"><img src="images/logo.png" alt="시티오씨엘" width="359" height="50"></div>
     <ul>
-      <li class="menu_head"><a><span>사업안내</span></a><img src="images/ico_arrow_down_m.png" class="ico_arrow" alt="" loading="lazy" decoding="async"></li>
+      <li class="menu_head"><a><span>사업안내</span></a><img src="images/ico_arrow_down_m.png" class="ico_arrow" alt="" loading="lazy" decoding="async" width="15" height="8"></li>
       <div class="menu_body"><a data-spy="p-intro-index" href="#p-intro-index">사업개요</a><a data-spy="p-intro-location" href="#p-intro-location">입지환경</a><a data-spy="p-intro-premium" href="#p-intro-premium">프리미엄</a><a data-spy="p-intro-map" href="#p-intro-map">오시는길</a></div>
-      <li class="menu_head"><a><span>단지안내</span></a><img src="images/ico_arrow_down_m.png" class="ico_arrow" alt="" loading="lazy" decoding="async"></li>
+      <li class="menu_head"><a><span>단지안내</span></a><img src="images/ico_arrow_down_m.png" class="ico_arrow" alt="" loading="lazy" decoding="async" width="15" height="8"></li>
       <div class="menu_body"><a data-spy="p-danji-danji_design" href="#p-danji-danji_design">단지설계</a><a data-spy="p-danji-danji_layout" href="#p-danji-danji_layout">단지배치도</a><a data-spy="p-danji-dong_layout" href="#p-danji-dong_layout">동·호배치도</a><a data-spy="p-danji-landscape" href="#p-danji-landscape">조경설계</a><a data-spy="p-danji-community" href="#p-danji-community">커뮤니티</a></div>
-      <li class="menu_head"><a><span>세대안내</span></a><img src="images/ico_arrow_down_m.png" class="ico_arrow" alt="" loading="lazy" decoding="async"></li>
+      <li class="menu_head"><a><span>세대안내</span></a><img src="images/ico_arrow_down_m.png" class="ico_arrow" alt="" loading="lazy" decoding="async" width="15" height="8"></li>
       <div class="menu_body"><a data-spy="p-type-type_info" href="#p-type-type_info">평면정보</a><a data-spy="p-type-interior" href="#p-type-interior">인테리어</a><a data-spy="p-type-system" href="#p-type-system">시스템</a></div>
       
       <li class="menu_head"><a data-spy="p-customer-customer" href="#p-customer-customer"><span>관심고객등록</span></a></li>
@@ -1518,7 +1526,7 @@ footer .top .logo img{filter:none!important}
          관심고객등록 / 전화상담 버튼과 오늘 하루 열지 않기·닫기는 그대로 유지됩니다. -->
     <img class="pr_img" id="promoImg" alt="선착순 분양 안내" hidden loading="lazy" decoding="async">
     <div class="pr_text">
-      <p class="pr_logo"><img src="images/mainVisual_slogan_01.png" alt="시티오씨엘 9단지 오션파크뷰"></p>
+      <p class="pr_logo"><img src="images/mainVisual_slogan_01.png" alt="시티오씨엘 9단지 오션파크뷰" width="701" height="98"></p>
       <p class="pr_date">2026<i>.</i>10<i>.</i>06</p>
       <p class="pr_ttl">동·호 지정 선착순 분양 시작</p>
       <p class="pr_desc">선착순으로 <em>동·호 지정</em>을 시작하기 때문에<br>미리 <em>관심고객등록</em>을 통해 <em>방문예약</em> 부탁드립니다.</p>
@@ -1566,7 +1574,7 @@ footer .top .logo img{filter:none!important}
     <div class="promo promo--m" id="promoBoxM">
         <img class="pr_img" id="promoImgM" alt="선착순 분양 안내" hidden loading="lazy" decoding="async">
         <div class="pr_text">
-          <p class="pr_logo"><img src="images/mainVisual_slogan_01.png" alt="시티오씨엘 9단지 오션파크뷰"></p>
+          <p class="pr_logo"><img src="images/mainVisual_slogan_01.png" alt="시티오씨엘 9단지 오션파크뷰" width="701" height="98"></p>
           <p class="pr_date">2026<i>.</i>10<i>.</i>06</p>
           <p class="pr_ttl">동·호 지정 선착순 분양 시작</p>
           <p class="pr_desc">선착순으로 <em>동·호 지정</em>을 시작하기 때문에<br>미리 <em>관심고객등록</em>을 통해 <em>방문예약</em> 부탁드립니다.</p>
@@ -1598,7 +1606,7 @@ footer .top .logo img{filter:none!important}
       </li>
     </ul>
 
-    <div class="main_logo"><img src="images/main_logo.png" alt="시티오씨엘"></div>
+    <div class="main_logo"><img src="images/main_logo.png" alt="시티오씨엘" width="668" height="359"></div>
 
     <div class="circle_open">
       <div class="svgWrap">
@@ -1846,7 +1854,7 @@ footer .top .logo img{filter:none!important}
     <div class="subVisual"><div class="bg"></div><div class="text"><h2 class="main"><span>사업개요</span></h2></div></div>
     <div class="subWrap">
       <div class="container"><div class="inner" data-aos>
-        <div class="image"><img src="images/info_intro.jpg" alt="사업개요" class="PC_V" loading="lazy" decoding="async"><img src="images/info_intro_m.jpg" alt="사업개요" class="MB_V" loading="lazy" decoding="async"></div>
+        <div class="image"><img src="images/info_intro.jpg" alt="사업개요" class="PC_V" loading="lazy" decoding="async" width="1100" height="550"><img src="images/info_intro_m.jpg" alt="사업개요" class="MB_V" loading="lazy" decoding="async" width="1100" height="550"></div>
         <div class="text">
           <div class="info_grid">
             <div class="info_item mo"><div class="info_line"></div><div class="info_label">사업명</div><div class="info_value">용현·학익 1블록 도시개발사업 공동3BL</div></div>
@@ -1870,20 +1878,20 @@ footer .top .logo img{filter:none!important}
         <div class="content">
           <div class="top_text mo"><span class="line"></span><p class="name"><span>PRESTIGE LOCATION</span></p></div>
           <ul class="imageBox">
-            <li class="mo"><div class="image"><img src="images/sub_location_img_02.jpg" alt="OVER THE NATURE" loading="lazy" decoding="async"></div>
+            <li class="mo"><div class="image"><img src="images/sub_location_img_02.jpg" alt="OVER THE NATURE" loading="lazy" decoding="async" width="636" height="429"></div>
               <div class="text"><h3 class="title"><span>OVER THE NATURE</span></h3>
                 <p class="desc"><span>그랜드파크<span class="small">(예정)</span>와 남항근린공원,<br> 갯골유수지, 서해바다 등 다양한 자연 인프라</span></p></div></li>
-            <li class="mo"><div class="image"><img src="images/sub_location_img_04.jpg" alt="OVER THE EDU" loading="lazy" decoding="async"></div>
+            <li class="mo"><div class="image"><img src="images/sub_location_img_04.jpg" alt="OVER THE EDU" loading="lazy" decoding="async" width="636" height="429"></div>
               <div class="text"><h3 class="title"><span>OVER THE EDU</span></h3>
                 <p class="desc"><span>인접한 용현학익2초<span class="small">(예정)</span>와 바로 앞 용현학익중<span class="small">(예정)</span>,<br> 고등학교<span class="small">(계획)</span> 등 걸어서 등교하는 맘편한 학세권</span></p></div></li>
-            <li class="mo"><div class="image"><img src="images/sub_location_img_01.jpg" alt="OVER THE TRAFFIC" loading="lazy" decoding="async"></div>
+            <li class="mo"><div class="image"><img src="images/sub_location_img_01.jpg" alt="OVER THE TRAFFIC" loading="lazy" decoding="async" width="660" height="429"></div>
               <div class="text"><h3 class="title"><span>OVER THE TRAFFIC</span></h3>
                 <p class="desc"><span>학익역<span class="small">(예정)</span>, KTX송도역<span class="small">(예정)</span>, GTX-B청학역<span class="small">(예정)</span>,<br> 능해IC-제2경인고속도로 등의 쾌속 광역교통망</span></p></div></li>
-            <li class="mo"><div class="image"><img src="images/sub_location_img_03.jpg" alt="OVER THE LIFE" loading="lazy" decoding="async"></div>
+            <li class="mo"><div class="image"><img src="images/sub_location_img_03.jpg" alt="OVER THE LIFE" loading="lazy" decoding="async" width="660" height="429"></div>
               <div class="text"><h3 class="title"><span>OVER THE LIFE</span></h3>
                 <p class="desc"><span>13,000여 세대 시티오씨엘 상권,<br> 인하대병원 등을 누리는 편리한 중심생활권</span></p></div></li>
           </ul>
-          <div class="image main mo"><img src="images/sub_location_main.jpg" alt="입지환경 종합도" loading="lazy" decoding="async"></div>
+          <div class="image main mo"><img src="images/sub_location_main.jpg" alt="입지환경 종합도" loading="lazy" decoding="async" width="1500" height="1131"></div>
         </div>
         <div class="info" data-aos>
         </div>
@@ -1896,28 +1904,28 @@ footer .top .logo img{filter:none!important}
       <div class="container"><div class="inner">
         <ul class="imgaeBox">
           <li class="mo"><div class="title"><p><span>파크뷰와 오션뷰를 모두 소유하는 자리</span></p><p class="point"><span>LANDSCAPE</span></p></div>
-            <div class="image"><img src="images/sub_premium_img_01.jpg" alt="LANDSCAPE" loading="lazy" decoding="async"></div>
+            <div class="image"><img src="images/sub_premium_img_01.jpg" alt="LANDSCAPE" loading="lazy" decoding="async" width="720" height="426"></div>
             <div class="text"><span>도심 속 공원 조망과 서해 바다 조망을<br> 모두 갖춘 독보적 입지<span class="small">(일부세대 제외)</span></span></div></li>
           <li class="mo"><div class="title"><p><span>자연과 어우러진 그랜드 에코라이프</span></p><p class="point"><span>REFRESH</span></p></div>
-            <div class="image"><img src="images/sub_premium_img_02.jpg" alt="REFRESH" loading="lazy" decoding="async"></div>
+            <div class="image"><img src="images/sub_premium_img_02.jpg" alt="REFRESH" loading="lazy" decoding="async" width="720" height="426"></div>
             <div class="text"><span>단지 앞에 위치한 그랜드파크<span class="small">(예정)</span>,<br class="MB_V"> 공원형 녹지를 갖춘 쾌적한 단지,<br class="PC_V"> 인근 남항근린공원, <br class="MB_V">갯골유수지 등 자연으로 둘러싸인 청정 주거환경</span></div></li>
           <li class="mo"><div class="title"><p><span>일상의 시간을 앞당기는 광역 교통망</span></p><p class="point"><span>MOVEMENT</span></p></div>
-            <div class="image"><img src="images/sub_premium_img_03.jpg" alt="MOVEMENT" loading="lazy" decoding="async"></div>
+            <div class="image"><img src="images/sub_premium_img_03.jpg" alt="MOVEMENT" loading="lazy" decoding="async" width="720" height="426"></div>
             <div class="text"><span>학익역<span class="small">(예정)</span>과 KTX송도역<span class="small">(예정)</span>, GTX-B청학역<span class="small">(예정)</span>,<br> 능해IC-제2경인고속도로 등 출퇴근 <br class="MB_V">시간을 단축하는 쾌속 교통망</span></div></li>
           <li class="mo"><div class="title"><p><span>초·중·고가 모인 안심 교육환경</span></p><p class="point"><span>SCHOOL</span></p></div>
-            <div class="image"><img src="images/sub_premium_img_04.jpg" alt="SCHOOL" loading="lazy" decoding="async"></div>
+            <div class="image"><img src="images/sub_premium_img_04.jpg" alt="SCHOOL" loading="lazy" decoding="async" width="720" height="426"></div>
             <div class="text"><span>초등학교<span class="small">(예정)</span>, 중학교<span class="small">(예정)</span>, 고등학교<span class="small">(계획)</span>가<br> 모두 가까이 위치한 안정적인 통학환경</span></div></li>
           <li class="mo"><div class="title"><p><span>다양한 삶을 수용하는 평면 구성</span></p><p class="point"><span>PLAN</span></p></div>
-            <div class="image"><img src="images/sub_premium_img_05.jpg" alt="PLAN" loading="lazy" decoding="async"></div>
+            <div class="image"><img src="images/sub_premium_img_05.jpg" alt="PLAN" loading="lazy" decoding="async" width="720" height="426"></div>
             <div class="text"><span>라이프스타일과 가족의 형태에 따라<br> 선택할 수 있는 다채로운 평형 제공</span></div></li>
           <li class="mo"><div class="title"><p><span>1만 3천여 세대 시티오씨엘 최대 단지</span></p><p class="point"><span>SIGNATURE</span></p></div>
-            <div class="image"><img src="images/sub_premium_img_06.jpg" alt="SIGNATURE" loading="lazy" decoding="async"></div>
+            <div class="image"><img src="images/sub_premium_img_06.jpg" alt="SIGNATURE" loading="lazy" decoding="async" width="720" height="426"></div>
             <div class="text"><span>1만 3천여 세대 명품복합도시, 시티오씨엘 내 최대<br> 1,949세대 규모로 완성되는 압도적 대단지</span></div></li>
           <li class="mo"><div class="title"><p><span>편리하고 풍부하게 누리는 생활인프라</span></p><p class="point"><span>INFRA</span></p></div>
-            <div class="image"><img src="images/sub_premium_img_07.jpg" alt="INFRA" loading="lazy" decoding="async"></div>
+            <div class="image"><img src="images/sub_premium_img_07.jpg" alt="INFRA" loading="lazy" decoding="async" width="720" height="426"></div>
             <div class="text"><span>1만 3천여 세대 미니신도시 상권 및 인천뮤지엄파크<span class="small">(예정)</span>,<br> 인하대병원 등 완벽에 가까운 생활환경</span></div></li>
           <li class="mo"><div class="title"><p><span>메이저 3사 공동 시공</span></p><p class="point"><span>SYNERGY</span></p></div>
-            <div class="image"><img src="images/sub_premium_img_08.jpg" alt="SYNERGY" loading="lazy" decoding="async"></div>
+            <div class="image"><img src="images/sub_premium_img_08.jpg" alt="SYNERGY" loading="lazy" decoding="async" width="720" height="426"></div>
             <div class="text"><span>IPARK현대산업개발, 현대건설, 포스코이앤씨까지<br> 국내 대표 건설 3사의 기술력과 노하우가<br class="MB_V"> 집약된 프리미엄 주거 단지</span></div></li>
         </ul>
       </div></div>
@@ -1936,9 +1944,9 @@ footer .top .logo img{filter:none!important}
             <div class="map_info mo"><div class="text"><h4 class="title"><span>견본주택</span></h4><p class="info"><span>인천광역시 미추홀구 아암대로 287번길 7</span></p></div>
               <div class="map_link"><a href="https://naver.me/xhPPM3ey" class="btn naver" target="_blank" rel="noopener">네이버 지도 보기</a><a href="https://kko.to/vzfg1TiWjD" class="btn kakao" target="_blank" rel="noopener">카카오 지도 보기</a></div></div>
           </div>
-          <div class="image contact_img_top mo"><img src="images/sub_contact_img.jpg" alt="오시는길 약도" loading="lazy" decoding="async"></div>
+          <div class="image contact_img_top mo"><img src="images/sub_contact_img.jpg" alt="오시는길 약도" loading="lazy" decoding="async" width="577" height="386"></div>
         </div>
-        <div class="image contact_img_bottom mo"><img src="images/sub_contact_img_bottom.jpg" alt="현장 위치 안내" class="PC_V" loading="lazy" decoding="async"><img src="images/sub_contact_img_bottom_m.jpg" alt="현장 위치 안내" class="MB_V" loading="lazy" decoding="async"></div>
+        <div class="image contact_img_bottom mo"><img src="images/sub_contact_img_bottom.jpg" alt="현장 위치 안내" class="PC_V" loading="lazy" decoding="async" width="1200" height="276"><img src="images/sub_contact_img_bottom_m.jpg" alt="현장 위치 안내" class="MB_V" loading="lazy" decoding="async" width="685" height="276"></div>
       </div></div>
     </div>
   </section>
@@ -1949,35 +1957,35 @@ footer .top .logo img{filter:none!important}
     <div class="subVisual"><div class="bg"></div><div class="text"><h2 class="main"><span>단지설계</span></h2></div>
       </div>
     <div class="subWrap">
-      <div class="container"><div class="inner" data-aos><img src="images/danji_design.jpg" alt="단지설계" loading="lazy" decoding="async"></div></div>
+      <div class="container"><div class="inner" data-aos><img src="images/danji_design.jpg" alt="단지설계" loading="lazy" decoding="async" width="1100" height="1848"></div></div>
     </div>
   </section>
   <section class="page" id="p-danji-danji_layout" data-title="단지배치도">
     <div class="subVisual"><div class="bg"></div><div class="text"><h2 class="main"><span>단지배치도</span></h2></div>
       </div>
     <div class="subWrap">
-      <div class="container"><div class="inner" data-aos><img src="images/danji_layout.jpg" alt="단지배치도" loading="lazy" decoding="async"></div></div>
+      <div class="container"><div class="inner" data-aos><img src="images/danji_layout.jpg" alt="단지배치도" loading="lazy" decoding="async" width="1100" height="1234"></div></div>
     </div>
   </section>
   <section class="page" id="p-danji-dong_layout" data-title="동·호배치도">
     <div class="subVisual"><div class="bg"></div><div class="text"><h2 class="main"><span>동·호배치도</span></h2></div>
       </div>
     <div class="subWrap">
-      <div class="container"><div class="inner" data-aos><img src="images/dong_layout.jpg" alt="동·호배치도" loading="lazy" decoding="async"></div></div>
+      <div class="container"><div class="inner" data-aos><img src="images/dong_layout.jpg" alt="동·호배치도" loading="lazy" decoding="async" width="1100" height="1652"></div></div>
     </div>
   </section>
   <section class="page" id="p-danji-landscape" data-title="조경설계">
     <div class="subVisual"><div class="bg"></div><div class="text"><h2 class="main"><span>조경설계</span></h2></div>
       </div>
     <div class="subWrap">
-      <div class="container"><div class="inner" data-aos><img src="images/landscape.jpg" alt="조경설계" loading="lazy" decoding="async"></div></div>
+      <div class="container"><div class="inner" data-aos><img src="images/landscape.jpg" alt="조경설계" loading="lazy" decoding="async" width="1100" height="2179"></div></div>
     </div>
   </section>
   <section class="page" id="p-danji-community" data-title="커뮤니티">
     <div class="subVisual"><div class="bg"></div><div class="text"><h2 class="main"><span>커뮤니티</span></h2></div>
       </div>
     <div class="subWrap">
-      <div class="container"><div class="inner" data-aos><img src="images/community.jpg" alt="커뮤니티" loading="lazy" decoding="async"></div></div>
+      <div class="container"><div class="inner" data-aos><img src="images/community.jpg" alt="커뮤니티" loading="lazy" decoding="async" width="1100" height="2530"></div></div>
     </div>
   </section>
 <section class="page" id="p-type-type_info" data-title="평면정보">
@@ -1997,16 +2005,16 @@ footer .top .logo img{filter:none!important}
           <li class="sub-tab" data-tabid="tabs-9">136㎡P</li>
           <div class="cl_b"></div>
         </ul>
-        <div class="tab-content on" id="tabs-0"><img src="images/type_59.jpg" alt="59㎡ 평면도" loading="lazy" decoding="async"></div>
-        <div class="tab-content" id="tabs-1"><img src="images/type_75.jpg" alt="75㎡ 평면도" loading="lazy" decoding="async"></div>
-        <div class="tab-content" id="tabs-2"><img src="images/type_84a.jpg" alt="84㎡A 평면도" loading="lazy" decoding="async"></div>
-        <div class="tab-content" id="tabs-3"><img src="images/type_84b.jpg" alt="84㎡B 평면도" loading="lazy" decoding="async"></div>
-        <div class="tab-content" id="tabs-4"><img src="images/type_95.jpg" alt="95㎡ 평면도" loading="lazy" decoding="async"></div>
-        <div class="tab-content" id="tabs-5"><img src="images/type_101a.jpg" alt="101㎡A 평면도" loading="lazy" decoding="async"></div>
-        <div class="tab-content" id="tabs-6"><img src="images/type_101b.jpg" alt="101㎡B 평면도" loading="lazy" decoding="async"></div>
-        <div class="tab-content" id="tabs-7"><img src="images/type_110.jpg" alt="110㎡ 평면도" loading="lazy" decoding="async"></div>
-        <div class="tab-content" id="tabs-8"><img src="images/type_133p.jpg" alt="133㎡P 평면도" loading="lazy" decoding="async"></div>
-        <div class="tab-content" id="tabs-9"><img src="images/type_136p.jpg" alt="136㎡P 평면도" loading="lazy" decoding="async"></div>
+        <div class="tab-content on" id="tabs-0"><img src="images/type_59.jpg" alt="59㎡ 평면도" loading="lazy" decoding="async" width="1100" height="1909"></div>
+        <div class="tab-content" id="tabs-1"><img src="images/type_75.jpg" alt="75㎡ 평면도" loading="lazy" decoding="async" width="1100" height="1811"></div>
+        <div class="tab-content" id="tabs-2"><img src="images/type_84a.jpg" alt="84㎡A 평면도" loading="lazy" decoding="async" width="1100" height="1838"></div>
+        <div class="tab-content" id="tabs-3"><img src="images/type_84b.jpg" alt="84㎡B 평면도" loading="lazy" decoding="async" width="1100" height="1875"></div>
+        <div class="tab-content" id="tabs-4"><img src="images/type_95.jpg" alt="95㎡ 평면도" loading="lazy" decoding="async" width="1100" height="1795"></div>
+        <div class="tab-content" id="tabs-5"><img src="images/type_101a.jpg" alt="101㎡A 평면도" loading="lazy" decoding="async" width="1100" height="1807"></div>
+        <div class="tab-content" id="tabs-6"><img src="images/type_101b.jpg" alt="101㎡B 평면도" loading="lazy" decoding="async" width="1100" height="1820"></div>
+        <div class="tab-content" id="tabs-7"><img src="images/type_110.jpg" alt="110㎡ 평면도" loading="lazy" decoding="async" width="1100" height="1809"></div>
+        <div class="tab-content" id="tabs-8"><img src="images/type_133p.jpg" alt="133㎡P 평면도" loading="lazy" decoding="async" width="1100" height="2025"></div>
+        <div class="tab-content" id="tabs-9"><img src="images/type_136p.jpg" alt="136㎡P 평면도" loading="lazy" decoding="async" width="1100" height="2052"></div>
       </div></div>
     </div>
   </section>
@@ -2014,14 +2022,14 @@ footer .top .logo img{filter:none!important}
     <div class="subVisual"><div class="bg"></div><div class="text"><h2 class="main"><span>인테리어</span></h2></div>
       </div>
     <div class="subWrap">
-      <div class="container"><div class="inner" data-aos><img src="images/interior.jpg" alt="인테리어" loading="lazy" decoding="async"></div></div>
+      <div class="container"><div class="inner" data-aos><img src="images/interior.jpg" alt="인테리어" loading="lazy" decoding="async" width="1100" height="2278"></div></div>
     </div>
   </section>
   <section class="page" id="p-type-system" data-title="시스템">
     <div class="subVisual"><div class="bg"></div><div class="text"><h2 class="main"><span>시스템</span></h2></div>
       </div>
     <div class="subWrap">
-      <div class="container"><div class="inner" data-aos><img src="images/system.jpg" alt="시스템" loading="lazy" decoding="async"></div></div>
+      <div class="container"><div class="inner" data-aos><img src="images/system.jpg" alt="시스템" loading="lazy" decoding="async" width="1100" height="1936"></div></div>
     </div>
   </section>
   
@@ -2216,14 +2224,44 @@ footer .top .logo img{filter:none!important}
     if (window.innerWidth <= 1081) return 62;
     return 88;
   }
+  var nudgeTimer = null, nudgeCancel = false, scrollOff = 0;
+  function cancelNudge(){ nudgeCancel = true; }
+  function nudgeTo(el){
+    if (nudgeTimer) { clearInterval(nudgeTimer); nudgeTimer = null; }
+    nudgeCancel = false;
+    /* 사용자가 직접 스크롤하면 보정 중단 */
+    ['wheel','touchstart','keydown','mousedown'].forEach(function(ev){
+      window.addEventListener(ev, cancelNudge, { once: true, passive: true });
+    });
+    var want = function(){ return el.getBoundingClientRect().top + window.pageYOffset - scrollOff; };
+    var n = 0;
+    setTimeout(function(){
+      nudgeTimer = setInterval(function(){
+        n++;
+        if (nudgeCancel || n > 10) { clearInterval(nudgeTimer); nudgeTimer = null; return; }
+        var d = want(), cur = window.pageYOffset;
+        var diff = d - cur;
+        if (diff > 8 || diff < -8) window.scrollTo({ top: d, behavior: 'auto' });
+        else { clearInterval(nudgeTimer); nudgeTimer = null; }
+      }, 200);
+    }, reduced ? 0 : 520);
+  }
   function scrollToAnchor(hash, push) {
     if (!hash || hash === '#none') return;
     var el = document.getElementById(hash.slice(1));
     if (!el) return;
     closeSub(); mmClose();
-    var y = el.getBoundingClientRect().top + window.pageYOffset - headerH() + 1;
+    /* 관심고객등록 : 상단 큰 제목 배너(subVisual)를 건너뛰고 폼 제목(.reg_head)부터 보이게 */
+    var off = headerH() - 1;
+    if (el.id === 'p-customer-customer') {
+      var head = el.querySelector('.reg_head');
+      if (head) { el = head; off = headerH() + 14; }
+    }
+    scrollOff = off;
+    var y = el.getBoundingClientRect().top + window.pageYOffset - off;
     window.scrollTo({ top: y, behavior: reduced ? 'auto' : 'smooth' });
     if (push !== false && history.replaceState) history.replaceState(null, '', hash);
+    nudgeTo(el);   /* 이미지 로딩으로 위치가 밀리면 목표 지점까지 재보정 */
   }
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a[href^="#"]');
@@ -2830,14 +2868,14 @@ footer .top .logo img{filter:none!important}
 <footer>
     <div class="footer_container">
       <div class="top">
-        <div class="logo"><img src="images/footer_logo.png" alt="시티오씨엘"></div>
+        <div class="logo"><img src="images/footer_logo.png" alt="시티오씨엘" width="239" height="34"></div>
         <a class="tel en" href="tel:1866-2766"><span class="tel_ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>1866-2766</a>
       </div>
       <div class="bottom">
         <div class="text">
           <p class="copy">COPYRIGHTⓒ CITY O CIEL. ALL RIGHT RESERVED</p>
         </div>
-        <div class="company"><img src="images/footer_company.png" alt="시공사 : 아이파크 현대산업개발, 현대건설, 포스코이앤씨" loading="lazy" decoding="async"></div>
+        <div class="company"><img src="images/footer_company.png" alt="시공사 : 아이파크 현대산업개발, 현대건설, 포스코이앤씨" loading="lazy" decoding="async" width="548" height="22"></div>
       </div>
     </div>
   </footer>
