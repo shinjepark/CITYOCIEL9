@@ -10,8 +10,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="시티오씨엘 CITYOCIEL — 편리하고 풍부하게 누리는 생활인프라. 용현학익 도시개발 1블록 공동 3블록.">
-<title>CITY O CIEL 9</title>
+<title>시티오씨엘 9단지 오션파크뷰 | 동호 지정 선착순 분양</title>
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
 <link rel="icon" href="images/favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+<meta name="theme-color" content="#07193f">
+<meta name="apple-mobile-web-app-title" content="시티오씨엘 9단지">
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2603,20 +2609,41 @@ img[width][height]{height:auto}
   function getSource(){
     var q=new URLSearchParams(location.search);
     var ref=document.referrer||'', host='';
-    try{host=ref?new URL(ref).hostname:'';}catch(e){}
-    var ch=q.get('ch');
-    if(!ch){
-      if(host.indexOf('kakao')>-1||host.indexOf('kakao')>-1) ch='카카오톡';
-      else if(host.indexOf('instagram')>-1) ch='인스타그램';
-      else if(host.indexOf('facebook')>-1) ch='페이스북';
-      else if(host.indexOf('band')>-1) ch='밴드';
-      else if(host.indexOf('naver')>-1) ch='네이버';
-      else if(host.indexOf('google')>-1) ch='구글';
-      else if(host) ch=host;
-      else if(/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) ch='모바일 직접유입';
-      else ch='PC 직접유입';
+    try{host=ref?new URL(ref).hostname.toLowerCase():'';}catch(e){}
+
+    /* ① 광고·채널별 링크에 붙인 utm_source → 채널명 (가장 정확한 신호) */
+    var MAP={
+      naver:'네이버',naversearch:'네이버',naverads:'네이버광고',naverblog:'네이버바로기',blog:'바로기',tistory:'바로기',brunch:'바로기',
+      google:'구글',googleads:'구글광고',googledisplay:'구글광고',youtube:'유튜브',
+      meta:'메타',facebook:'페이스북',fb:'페이스북',instagram:'인스타그램',ig:'인스타그램',
+      daangn:'당근',karrot:'당근',kakao:'카카오톡',kakaoch:'카카오톡',band:'밴드',
+      news:'뉴스기사',article:'뉴스기사',press:'뉴스기사',
+      email:'이메일',sms:'문자',mms:'문자',navercafe:'네이버카페',cafe:'카페'
+    };
+    var usRaw=q.get('utm_source')||'';
+    var usKey=usRaw.toLowerCase().replace(/[^a-z0-9]/g,'');
+    var ch=q.get('ch')||'';
+    if(!ch && usRaw) ch=MAP[usKey]||usRaw;
+
+    /* ② 리퍼러(이전 페이지) 도메인으로 판별 */
+    if(!ch && host){
+      if(/kko\.to$|kakao/.test(host)) ch='카카오톡';
+      else if(/instagram/.test(host)) ch='인스타그램';
+      else if(/facebook|fb\.|fbcdn/.test(host)) ch='페이스북';
+      else if(/daangn|karrot/.test(host)) ch='당근';
+      else if(/band\.us/.test(host)) ch='밴드';
+      else if(/blog\.naver|tistory|brunch/.test(host)) ch='바로기';
+      else if(/cafe\.naver/.test(host)) ch='네이버카페';
+      else if(/naver/.test(host)) ch='네이버';
+      else if(/google|youtube/.test(host)) ch='구글';
+      else if(/news|media|press|daily|times|ilbo/.test(host)) ch='뉴스기사';
+      else ch=host;
     }
-    return {channel:ch,utm_source:q.get('utm_source')||'',utm_medium:q.get('utm_medium')||'',
+
+    /* ③ 위 신호가 없으면 직접유입 (= 판별 실패) */
+    if(!ch) ch=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)?'모바일 직접유입':'PC 직접유입';
+
+    return {channel:ch,utm_source:usRaw,utm_medium:q.get('utm_medium')||'',
             utm_campaign:q.get('utm_campaign')||'',referrer:ref};
   }
   function sendLead(data){
