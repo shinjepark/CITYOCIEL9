@@ -6,31 +6,73 @@
 <meta name="robots" content="noindex, nofollow">
 <title>시티오씨엘 9단지 관심고객 관리</title>
 <style>
-  :root{--navy:#07193f;--point:#0e2a5c;--gold:#ab9780;--bg:#f4f2ee}
+  :root{--navy:#07193f;--point:#0e2a5c;--gold:#ab9780;--bg:#f4f2ee;--line:#e6e8ee}
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:var(--bg);color:#0b1f42;padding:20px}
   .wrap{max-width:1180px;margin:0 auto}
   h1{font-size:20px;margin-bottom:16px}
   h1 .brand{color:var(--point)}
   h1 .sub{font-size:13px;font-weight:400;color:#77809a;margin-left:8px}
+  .box{background:#fff;border-radius:12px;padding:18px;box-shadow:0 4px 14px rgba(7,25,63,.06);margin-bottom:16px}
+  .box>h2{font-size:15px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .box>h2 .tag{font-size:11px;font-weight:600;color:#fff;background:var(--gold);padding:2px 8px;border-radius:20px}
   .login{max-width:340px;margin:80px auto;background:#fff;padding:30px;border-radius:12px;box-shadow:0 10px 30px rgba(7,25,63,.10);border-top:3px solid var(--gold)}
   .login h1{text-align:center}
   .login input{width:100%;padding:12px;border:1px solid #d5dae3;border-radius:8px;font-size:15px;margin:14px 0 12px}
-  .login button,.tool button{background:var(--point);color:#fff;border:none;padding:12px 18px;border-radius:8px;font-size:15px;cursor:pointer;transition:background .2s}
+  .login button,.tool button,.gen button{background:var(--point);color:#fff;border:none;padding:12px 18px;border-radius:8px;font-size:15px;cursor:pointer;transition:background .2s}
   .login button{width:100%}
-  .login button:hover,.tool button:hover{background:#173c7a}
+  .login button:hover,.tool button:hover,.gen button:hover{background:#173c7a}
   .hidden{display:none}
-  .summary{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
-  .card{background:#fff;border-radius:10px;padding:14px 18px;box-shadow:0 4px 14px rgba(7,25,63,.06);min-width:120px;border-left:3px solid var(--gold)}
-  .card .n{font-size:22px;font-weight:800;color:var(--point)}
-  .card .l{font-size:13px;color:#667}
-  .tool{display:flex;gap:8px;margin-bottom:12px}
-  .tool input{flex:1;padding:10px;border:1px solid #d5dae3;border-radius:8px}
-  table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 4px 14px rgba(7,25,63,.06);font-size:13px}
-  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #eef0e8}
-  th{background:var(--navy);color:#fff;white-space:nowrap}
-  tr:hover{background:#fbfaf7}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}
+  .card{background:#fff;border-radius:10px;padding:14px 18px;box-shadow:0 4px 14px rgba(7,25,63,.06);border-left:3px solid var(--gold)}
+  .card .n{font-size:24px;font-weight:800;color:var(--point);line-height:1.2}
+  .card .l{font-size:12.5px;color:#667;margin-top:2px}
+  .tool{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+  .tool input{flex:1;min-width:180px;padding:10px;border:1px solid #d5dae3;border-radius:8px}
+  table{width:100%;border-collapse:collapse;background:#fff;font-size:13px}
+  .tbl{overflow-x:auto;border-radius:10px;box-shadow:0 4px 14px rgba(7,25,63,.06)}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #eef0e8;white-space:nowrap}
+  th{background:var(--navy);color:#fff;font-weight:600}
+  tbody tr:hover{background:#fbfaf7}
   .err{color:#c0392b;font-size:13px;margin-bottom:8px;min-height:17px}
+  .ok{color:#1e7a46;font-size:13px;margin-bottom:8px;min-height:17px}
+  /* 채널별 막대 그래프 */
+  .bars{display:flex;flex-direction:column;gap:9px}
+  .barrow{display:grid;grid-template-columns:130px 1fr 54px;align-items:center;gap:12px;font-size:13px}
+  .barrow .k{color:#33405e;font-weight:600;overflow:hidden;text-overflow:ellipsis}
+  .bar{background:#eef1f6;border-radius:20px;height:20px;overflow:hidden}
+  .bar>span{display:block;height:100%;border-radius:20px;background:linear-gradient(90deg,var(--point),#2f63b8);min-width:3px;transition:width .5s}
+  .barrow .v{text-align:right;font-weight:800;color:var(--point)}
+  .barrow:nth-child(1) .bar>span{background:linear-gradient(90deg,var(--gold),#cdb894)}
+  /* 일자별 미니 그래프 */
+  .days{display:flex;align-items:flex-end;gap:6px;height:120px;margin-top:6px}
+  .day{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px}
+  .day .b{width:100%;background:linear-gradient(180deg,#2f63b8,var(--point));border-radius:4px 4px 0 0;min-height:2px}
+  .day .d{font-size:10px;color:#8a93a8}
+  .day .n{font-size:11px;font-weight:700;color:var(--point)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.two{grid-template-columns:1fr}.barrow{grid-template-columns:96px 1fr 44px}}
+  .btn{border:none;border-radius:6px;padding:6px 11px;font-size:12px;cursor:pointer;font-family:inherit}
+  .btn.edit{background:#e8eefb;color:var(--point);font-weight:700}
+  .btn.del{background:#fdeceb;color:#c0392b;font-weight:700}
+  .btn:hover{filter:brightness(.95)}
+  /* UTM 생성기 */
+  .gen{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+  .gen label{display:block;font-size:12px;color:#5b6684;margin-bottom:5px;font-weight:600}
+  .gen input,.gen select{width:100%;padding:10px;border:1px solid #d5dae3;border-radius:8px;font-size:13.5px;font-family:inherit}
+  .genout{margin-top:14px;display:flex;gap:8px;align-items:stretch}
+  .genout input{flex:1;padding:12px;border:1px dashed var(--gold);border-radius:8px;background:#fbf9f4;font-size:13px;color:var(--point);font-weight:600}
+  .hint{font-size:12px;color:#8a93a8;margin-top:8px;line-height:1.6}
+  /* 수정 모달 */
+  .modal{position:fixed;inset:0;background:rgba(7,25,63,.55);display:flex;align-items:center;justify-content:center;padding:20px;z-index:50}
+  .modal .inner{background:#fff;border-radius:14px;padding:24px;width:min(460px,100%);box-shadow:0 20px 50px rgba(0,0,0,.3)}
+  .modal h3{font-size:16px;margin-bottom:16px}
+  .modal .f{margin-bottom:12px}
+  .modal .f label{display:block;font-size:12.5px;color:#5b6684;margin-bottom:5px;font-weight:600}
+  .modal .f input{width:100%;padding:11px;border:1px solid #d5dae3;border-radius:8px;font-size:14px;font-family:inherit}
+  .modal .act{display:flex;gap:8px;justify-content:flex-end;margin-top:18px}
+  .modal .act button{padding:11px 20px;font-size:14px}
+  .modal .act .cancel{background:#eef1f6;color:#33405e}
 </style>
 </head>
 <body>
@@ -43,92 +85,322 @@
   </div>
 
   <div id="dashBox" class="hidden">
-    <h1><span class="brand">시티오씨엘 9단지</span> 관심고객 관리 <span class="sub">총 <span id="totalCount">0</span>건</span></h1>
-    <div class="summary" id="summary"></div>
-    <div class="tool">
-      <input type="text" id="search" placeholder="이름·연락처·유입경로 검색" oninput="renderTable()">
-      <button onclick="downloadCSV()">엑셀(CSV) 저장</button>
+    <h1><span class="brand">시티오씨엘 9단지</span> 관심고객 관리
+      <span class="sub">총 <span id="totalCount">0</span>건</span></h1>
+
+    <div class="cards" id="cards"></div>
+
+    <div class="box">
+      <h2>채널별 유입 집계 <span class="tag">광고 성과</span></h2>
+      <div class="bars" id="bars"></div>
+      <div class="hint" id="barsHint"></div>
     </div>
-    <div style="overflow-x:auto">
-      <table>
-        <thead><tr>
-          <th>번호</th><th>등록일시</th><th>이름</th><th>연락처</th>
-          <th>관심평형</th><th>유입경로</th><th>utm_source</th><th>유입페이지</th>
-        </tr></thead>
-        <tbody id="tbody"></tbody>
-      </table>
+
+    <div class="two">
+      <div class="box">
+        <h2>최근 14일 등록 추이</h2>
+        <div class="days" id="days"></div>
+      </div>
+      <div class="box">
+        <h2>관심평형별</h2>
+        <div class="bars" id="typeBars"></div>
+      </div>
+    </div>
+
+    <div class="box">
+      <h2>UTM 링크 생성기 <span class="tag">채널 추적</span></h2>
+      <div class="gen">
+        <div>
+          <label>채널 (utm_source)</label>
+          <select id="gSrc" onchange="document.getElementById('gSrcCustom').value=''">
+            <option value="naver">네이버 (naver)</option>
+            <option value="naverads">네이버 검색광고 (naverads)</option>
+            <option value="naverblog">네이버 블로그 (naverblog)</option>
+            <option value="navercafe">네이버 카페 (navercafe)</option>
+            <option value="google">구글 (google)</option>
+            <option value="googleads">구글 광고 (googleads)</option>
+            <option value="youtube">유튜브 (youtube)</option>
+            <option value="meta">메타 (meta)</option>
+            <option value="facebook">페이스북 (facebook)</option>
+            <option value="instagram">인스타그램 (instagram)</option>
+            <option value="daangn">당근 (daangn)</option>
+            <option value="kakao">카카오톡 (kakao)</option>
+            <option value="band">밴드 (band)</option>
+            <option value="news">뉴스기사 (news)</option>
+            <option value="sms">문자 (sms)</option>
+            <option value="email">이메일 (email)</option>
+          </select>
+          <input type="text" id="gSrcCustom" placeholder="직접 입력 (선택)" style="margin-top:6px" oninput="if(this.value)document.getElementById('gSrc').value=''">
+        </div>
+        <div>
+          <label>방식 (utm_medium)</label>
+          <input type="text" id="gMed" value="cpc" placeholder="cpc / banner / blog / sms">
+        </div>
+        <div>
+          <label>캠페인 (utm_campaign)</label>
+          <input type="text" id="gCam" placeholder="예: 10월캠페인" oninput="buildUTM()">
+        </div>
+        <div>
+          <label>소재·구분 (utm_content, 선택)</label>
+          <input type="text" id="gCon" placeholder="예: A이미지" oninput="buildUTM()">
+        </div>
+      </div>
+      <div class="genout">
+        <input type="text" id="utmOut" readonly>
+        <button onclick="copyUTM()">복사</button>
+      </div>
+      <div class="hint">
+        위 값이 바뀌면 링크가 자동 생성됩니다. 이 링크를 각 채널 광고의 <b>최종 도착 URL</b>로 넣으세요.<br>
+        유입경로가 <b>채널명으로 표시</b>되고, 어드민 집계에도 채널별로 잡힙니다.
+      </div>
+    </div>
+
+    <div class="box">
+      <h2>전체 신청 목록</h2>
+      <div class="tool">
+        <input type="text" id="search" placeholder="이름·연락처·유입경로 검색" oninput="renderTable()">
+        <button onclick="reload()">새로고침</button>
+        <button onclick="downloadCSV()">엑셀(CSV) 저장</button>
+      </div>
+      <div id="msg" class="ok"></div>
+      <div class="tbl">
+        <table>
+          <thead><tr>
+            <th>번호</th><th>등록일시</th><th>이름</th><th>연락처</th>
+            <th>관심평형</th><th>유입경로</th><th>utm_source</th><th>캠페인</th><th>유입페이지</th><th>관리</th>
+          </tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal" class="modal hidden">
+  <div class="inner">
+    <h3>신청 정보 수정 <span id="mId" style="color:#8a93a8;font-size:13px"></span></h3>
+    <div class="f"><label>이름</label><input type="text" id="mName" maxlength="50"></div>
+    <div class="f"><label>연락처</label><input type="tel" id="mPhone" maxlength="30"></div>
+    <div class="f"><label>관심평형</label><input type="text" id="mType" maxlength="80"></div>
+    <div class="f"><label>유입경로</label><input type="text" id="mChannel" maxlength="50"></div>
+    <div class="err" id="mErr"></div>
+    <div class="act">
+      <button class="cancel" onclick="closeModal()">취소</button>
+      <button onclick="saveEdit()">저장</button>
     </div>
   </div>
 </div>
 
 <script>
-let allRows=[];
+var allRows=[], stats=null, editId=null;
+var SITE='https://xn--9-hi5fy2deuapl986d.kr/';
+var MASKED=false;
+
+function pw(){ return sessionStorage.getItem('adminpw')||''; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function num(n){ return Number(n||0).toLocaleString('ko-KR'); }
 
 function login(){
-  const pw=document.getElementById('pw').value;
+  var v=document.getElementById('pw').value;
   document.getElementById('loginErr').textContent='';
-  fetch('/admin',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({password:pw})
-  })
-  .then(r=>r.json())
-  .then(res=>{
-    if(!res.ok){document.getElementById('loginErr').textContent='비밀번호가 올바르지 않습니다.';return;}
-    sessionStorage.setItem('adminpw',pw);
-    allRows=res.rows;
+  api({password:v}).then(function(res){
+    if(!res.ok){ document.getElementById('loginErr').textContent='비밀번호가 올바르지 않습니다.'; return; }
+    sessionStorage.setItem('adminpw',v);
     document.getElementById('loginBox').classList.add('hidden');
     document.getElementById('dashBox').classList.remove('hidden');
-    document.getElementById('totalCount').textContent=res.total;
-    renderSummary(res.summary);
-    renderTable();
-  })
-  .catch(()=>{document.getElementById('loginErr').textContent='오류가 발생했습니다. 다시 시도해 주세요.';});
+    apply(res);
+  }).catch(function(){ document.getElementById('loginErr').textContent='오류가 발생했습니다. 다시 시도해 주세요.'; });
 }
 
-function renderSummary(summary){
-  const box=document.getElementById('summary');
-  box.innerHTML='';
-  Object.entries(summary).sort((a,b)=>b[1]-a[1]).forEach(([k,v])=>{
-    box.innerHTML+='<div class="card"><div class="n">'+v+'</div><div class="l">'+k+'</div></div>';
-  });
+function api(payload){
+  return fetch('/admin',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(Object.assign({password:pw()},payload))})
+    .then(function(r){return r.json();});
+}
+
+function apply(res){
+  allRows=res.rows||[]; stats=res.stats||{};
+  document.getElementById('totalCount').textContent=num(res.total);
+  renderCards(res);
+  renderBars('bars',stats.byChannel,'barsHint');
+  renderBars('typeBars',stats.byType);
+  renderDays(stats.byDay||[]);
+  renderTable();
+}
+
+function reload(){
+  api({}).then(function(res){ if(res.ok){ apply(res); flash('새로고침 완료'); } });
+}
+
+function renderCards(res){
+  var c=document.getElementById('cards');
+  var arr=[
+    {n:num(res.total),l:'전체 신청'},
+    {n:num(res.todayCount),l:'오늘 신청'},
+    {n:num(res.weekCount),l:'최근 7일'},
+    {n:num(res.reservations),l:'예약 카운트 (말풍선)'}
+  ];
+  c.innerHTML=arr.map(function(x){
+    return '<div class="card"><div class="n">'+x.n+'</div><div class="l">'+x.l+'</div></div>';}).join('');
+}
+
+function renderBars(id,list,hintId){
+  var box=document.getElementById(id); if(!box) return;
+  list=list||[];
+  if(!list.length){ box.innerHTML='<div class="hint">아직 데이터가 없습니다.</div>';
+    if(hintId)document.getElementById(hintId).textContent=''; return; }
+  var max=Math.max.apply(null,list.map(function(x){return x.v;}));
+  box.innerHTML=list.map(function(x){
+    var pct=Math.max(2,Math.round(x.v/max*100));
+    return '<div class="barrow"><div class="k" title="'+esc(x.k)+'">'+esc(x.k)+'</div>'+
+      '<div class="bar"><span style="width:'+pct+'%"></span></div>'+
+      '<div class="v">'+num(x.v)+'</div></div>';
+  }).join('');
+  if(hintId){
+    var top=list[0];
+    var direct=list.filter(function(x){return /직접유입/.test(x.k);})
+                   .reduce(function(a,b){return a+b.v;},0);
+    document.getElementById(hintId).innerHTML=
+      '최다 유입: <b>'+esc(top.k)+'</b> ('+num(top.v)+'건) · '+
+      'UTM 없이 들어온 <b>직접유입 '+num(direct)+'건</b>은 채널 파악이 안 된 건입니다.';
+  }
+}
+
+function renderDays(list){
+  var box=document.getElementById('days'); if(!box) return;
+  if(!list.length){ box.innerHTML='<div class="hint">데이터가 없습니다.</div>'; return; }
+  var max=Math.max.apply(null,list.map(function(x){return x.v;}))||1;
+  box.innerHTML=list.map(function(x){
+    var h=Math.round(x.v/max*88);
+    return '<div class="day"><div class="n">'+(x.v?x.v:'')+'</div>'+
+      '<div class="b" style="height:'+Math.max(2,h)+'px"></div>'+
+      '<div class="d">'+x.k.slice(5).replace('-','/')+'</div></div>';
+  }).join('');
 }
 
 function renderTable(){
-  const q=(document.getElementById('search').value||'').toLowerCase();
-  const tbody=document.getElementById('tbody');
-  tbody.innerHTML='';
-  allRows.filter(r=>{
-    if(!q)return true;
-    return ((r.name||'')+(r.phone||'')+(r.channel||'')).toLowerCase().includes(q);
-  }).forEach(r=>{
-    tbody.innerHTML+='<tr>'+
+  var q=(document.getElementById('search').value||'').toLowerCase();
+  var tb=document.getElementById('tbody'); tb.innerHTML='';
+  var rows=allRows.filter(function(r){
+    if(!q) return true;
+    return ((r.name||'')+(r.phone||'')+(r.channel||'')+(r.utm_source||'')+(r.utm_campaign||'')).toLowerCase().indexOf(q)>-1;
+  });
+  if(!rows.length){
+    tb.innerHTML='<tr><td colspan="10" style="text-align:center;color:#8a93a8;padding:26px">표시할 신청이 없습니다.</td></tr>';
+    return;
+  }
+  tb.innerHTML=rows.map(function(r){
+    return '<tr>'+
       '<td>'+r.id+'</td>'+
-      '<td>'+(r.created_at||'')+'</td>'+
-      '<td>'+(r.name||'')+'</td>'+
-      '<td>'+(r.phone||'')+'</td>'+
-      '<td>'+(r.type||'-')+'</td>'+
-      '<td>'+(r.channel||'-')+'</td>'+
-      '<td>'+(r.utm_source||'-')+'</td>'+
-      '<td style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(r.page_url||'')+'</td>'+
+      '<td>'+esc(r.created_at)+'</td>'+
+      '<td><b>'+esc(r.name)+'</b></td>'+
+      '<td>'+esc(r.phone)+'</td>'+
+      '<td>'+esc(r.type||'-')+'</td>'+
+      '<td>'+esc(r.channel||'-')+'</td>'+
+      '<td>'+esc(r.utm_source||'-')+'</td>'+
+      '<td>'+esc(r.utm_campaign||'-')+'</td>'+
+      '<td style="max-width:200px;overflow:hidden;text-overflow:ellipsis">'+esc(r.page_url||'')+'</td>'+
+      '<td><button class="btn edit" onclick="openEdit('+r.id+')">수정</button> '+
+          '<button class="btn del" onclick="delRow('+r.id+')">삭제</button></td>'+
     '</tr>';
+  }).join('');
+}
+
+function findRow(id){ for(var i=0;i<allRows.length;i++) if(allRows[i].id===id) return allRows[i]; return null; }
+
+function openEdit(id){
+  var r=findRow(id); if(!r) return;
+  editId=id;
+  document.getElementById('mId').textContent='#'+id;
+  document.getElementById('mName').value=r.name||'';
+  document.getElementById('mPhone').value=r.phone||'';
+  document.getElementById('mType').value=r.type||'';
+  document.getElementById('mChannel').value=r.channel||'';
+  document.getElementById('mErr').textContent='';
+  document.getElementById('modal').classList.remove('hidden');
+}
+function closeModal(){ document.getElementById('modal').classList.add('hidden'); editId=null; }
+
+function saveEdit(){
+  if(!editId) return;
+  var name=document.getElementById('mName').value.trim();
+  var phone=document.getElementById('mPhone').value.trim();
+  if(!name||!phone){ document.getElementById('mErr').textContent='이름과 연락처는 필수입니다.'; return; }
+  api({action:'update',id:editId,name:name,phone:phone,
+       type:document.getElementById('mType').value.trim(),
+       channel:document.getElementById('mChannel').value.trim()})
+  .then(function(res){
+    if(!res.ok){ document.getElementById('mErr').textContent=(res.error||'수정 실패'); return; }
+    closeModal(); reload(); flash('수정되었습니다.');
   });
 }
 
+function delRow(id){
+  var r=findRow(id);
+  var label=r?('#'+id+' '+r.name+' / '+r.phone):('#'+id);
+  if(!confirm(label+'\n\n이 신청을 삭제하시겠습니까?\n삭제 후에는 되돌릴 수 없습니다.')) return;
+  api({action:'delete',id:id}).then(function(res){
+    if(!res.ok){ alert('삭제 실패: '+(res.error||'')); return; }
+    reload(); flash('삭제되었습니다.');
+  });
+}
+
+function flash(t){
+  var m=document.getElementById('msg'); m.textContent=t;
+  setTimeout(function(){ m.textContent=''; },2500);
+}
+
+/* ---------------- UTM 링크 생성기 ---------------- */
+function buildUTM(){
+  var src=(document.getElementById('gSrcCustom').value||document.getElementById('gSrc').value||'').trim();
+  var med=(document.getElementById('gMed').value||'').trim();
+  var cam=(document.getElementById('gCam').value||'').trim();
+  var con=(document.getElementById('gCon').value||'').trim();
+  var p=[];
+  if(src)p.push('utm_source='+encodeURIComponent(src));
+  if(med)p.push('utm_medium='+encodeURIComponent(med));
+  if(cam)p.push('utm_campaign='+encodeURIComponent(cam));
+  if(con)p.push('utm_content='+encodeURIComponent(con));
+  document.getElementById('utmOut').value = p.length ? (SITE+'?'+p.join('&')) : SITE;
+}
+function copyUTM(){
+  var el=document.getElementById('utmOut'); el.select(); el.setSelectionRange(0,99999);
+  try{ document.execCommand('copy'); }catch(e){}
+  if(navigator.clipboard) navigator.clipboard.writeText(el.value).catch(function(){});
+  flash('링크를 복사했습니다.');
+}
+['gSrc','gMed','gCam','gCon'].forEach(function(id){
+  document.addEventListener('DOMContentLoaded',function(){
+    var el=document.getElementById(id); if(el) el.addEventListener('input',buildUTM);
+  });
+});
+
+/* ---------------- CSV ---------------- */
 function downloadCSV(){
-  const header=['번호','등록일시','이름','연락처','관심평형','유입경로','utm_source','utm_medium','utm_campaign','referrer','유입페이지'];
-  const lines=[header.join(',')];
-  allRows.forEach(r=>{
-    const row=[r.id,r.created_at,r.name,r.phone,r.type,r.channel,r.utm_source,r.utm_medium,r.utm_campaign,r.referrer,r.page_url]
-      .map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"');
+  var header=['번호','등록일시','이름','연락처','관심평형','유입경로','utm_source','utm_medium','utm_campaign','referrer','유입페이지'];
+  var lines=[header.join(',')];
+  allRows.forEach(function(r){
+    var row=[r.id,r.created_at,r.name,r.phone,r.type,r.channel,r.utm_source,r.utm_medium,r.utm_campaign,r.referrer,r.page_url]
+      .map(function(v){return '"'+String(v==null?'':v).replace(/"/g,'""')+'"';});
     lines.push(row.join(','));
   });
-  const blob=new Blob(['\uFEFF'+lines.join('\n')],{type:'text/csv;charset=utf-8;'});
-  const a=document.createElement('a');
+  var blob=new Blob(['\uFEFF'+lines.join('\n')],{type:'text/csv;charset=utf-8;'});
+  var a=document.createElement('a');
   a.href=URL.createObjectURL(blob);
   a.download='cityociel_leads_'+new Date().toISOString().slice(0,10)+'.csv';
   a.click();
 }
+
+/* 자동 로그인 (탭 유지 중) */
+document.addEventListener('DOMContentLoaded',function(){
+  buildUTM();
+  var saved=sessionStorage.getItem('adminpw');
+  if(saved){ document.getElementById('pw').value=saved; login(); }
+  document.getElementById('gSrc').addEventListener('change',buildUTM);
+  document.getElementById('gMed').addEventListener('input',buildUTM);
+});
 </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
