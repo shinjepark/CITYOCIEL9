@@ -1280,12 +1280,15 @@ body{padding-bottom:80px}
 .resv_bubble b.bump{animation:cntBump .5s cubic-bezier(.2,1.6,.5,1)}
 @keyframes cntBump{0%{transform:scale(1)}45%{transform:scale(1.55)}100%{transform:scale(1)}}
 
-/* 하단바 : 접혀 있으면 손잡이 위 / 펼쳐져 있으면 방문예약신청 버튼 위 */
-#rbBubbleHandle{display:none;right:34px;bottom:calc(100% + 14px)}
-.reg_bar.down #rbBubbleHandle{display:inline-flex!important}
-.reg_bar.down #rbBubbleBtn{display:none!important}
-.rb_form{position:relative}
-#rbBubbleBtn{right:0;bottom:calc(100% + 14px)}
+/* 하단바 말풍선 : 항상 하단바 바로 위·가운데 (펼침/접힘 모두) */
+.rb_bubble{left:50%!important;right:auto!important;transform:translateX(-50%)!important;bottom:calc(100% + 14px)!important}
+.rb_bubble::after{left:50%}
+.rb_bubble.bub_off{display:none!important}
+
+/* PC : 방문예약신청 버튼을 개인정보수집 동의 바로 오른편으로 */
+@media (min-width:1081px){
+  .rb_submit{margin-left:10px!important}
+}
 
 /* 관심고객등록 폼 : 등록하기 버튼 바로 위 */
 .btn_confirm{position:relative}
@@ -1294,7 +1297,6 @@ body{padding-bottom:80px}
 @media (max-width:1080px){
   .resv_bubble{font-size:11.5px;padding:8px 13px}
   .resv_bubble b{font-size:14px}
-  #rbBubbleHandle{right:14px}
 }
 
 /* ---------- 푸터 : 검정 → 흰색 ---------- */
@@ -1460,7 +1462,8 @@ footer .top .logo img{filter:none!important}
 
 <!-- ===== 하단 고정 관심고객등록 간략바 ===== -->
 <div class="reg_bar" id="regBar">
-  <div class="rb_handle" id="rbHandle" role="button" tabindex="0" aria-label="예약신청바 접기/펴기"><div class="resv_bubble" id="rbBubbleHandle">🔥 오늘까지 <b class="rb_cnt">84</b>명이 예약하였습니다</div><span></span></div>
+  <div class="rb_handle" id="rbHandle" role="button" tabindex="0" aria-label="예약신청바 접기/펴기"><span></span></div>
+  <div class="resv_bubble rb_bubble" id="rbBubble">🔥 오늘까지 <b class="rb_cnt">84</b>명이 예약하였습니다</div>
   <div class="rb_inner">
     <div class="rb_left">
       <strong class="rb_name">시티오씨엘</strong>
@@ -1472,7 +1475,6 @@ footer .top .logo img{filter:none!important}
       <label class="rb_chk"><input type="checkbox" id="rb-agree"><span class="bx"></span><span class="tx">개인정보수집 동의</span></label>
       <button type="button" class="rb_view" id="rbView">[보기]</button>
       <button type="submit" class="rb_submit">방문예약신청</button>
-      <span class="resv_bubble" id="rbBubbleBtn">🔥 오늘까지 <b class="rb_cnt">84</b>명이 예약하였습니다</span>
     </form>
   </div>
 </div>
@@ -2704,6 +2706,25 @@ footer .top .logo img{filter:none!important}
       return pr;
     };
   }
+})();
+
+/* ============================================================
+   말풍선 중복 방지 : 관심고객등록 폼 말풍선이 보이면 하단바 말풍선 숨김
+   ============================================================ */
+(function(){
+  var bar=document.getElementById('rbBubble');
+  var frm=document.querySelector('.resv_bubble--form');
+  if(!bar||!frm)return;
+  function sync(){
+    var r=frm.getBoundingClientRect();
+    var vis=(r.top < window.innerHeight*0.94 && r.bottom > 0);
+    bar.classList.toggle('bub_off',vis);
+  }
+  window.addEventListener('scroll',sync,{passive:true});
+  window.addEventListener('resize',sync);
+  window.addEventListener('load',sync);
+  setTimeout(sync,600); setTimeout(sync,1800); setTimeout(sync,3200);
+  sync();
 })();
 
 </script>
