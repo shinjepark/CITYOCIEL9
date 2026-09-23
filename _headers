@@ -1,0 +1,8 @@
+/admin.html
+  X-Robots-Tag: noindex, nofollow
+
+/thankyou.html
+  X-Robots-Tag: noindex, nofollow
+
+/og_image.jpg
+  Cache-Control: public, max-age=86400
