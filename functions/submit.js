@@ -61,6 +61,7 @@ export async function onRequestPost(context) {
       `📞 연락처: ${phone}\n` +
       `🏠 관심평형: ${type || "-"}\n` +
       `📊 유입경로: ${channel || "-"}\n` +
+      (utm_source ? `🔗 광고: ${utm_source}${utm_medium ? " / " + utm_medium : ""}${utm_campaign ? " / " + utm_campaign : ""}\n` : "") +
       `🕒 ${createdAt} (KST)`;
 
     try {
