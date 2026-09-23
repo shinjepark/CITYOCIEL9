@@ -52,13 +52,6 @@ img{max-width:100%;display:block}
 @media (max-width:1081px){
   .PC_V{display:none!important}
   .MB_V{display:block!important}
-}
-.img_cut{
-  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  font-size:11px;letter-spacing:.35em;color:rgba(255,255,255,.8);
-  border:1px solid rgba(255,255,255,.35);padding:6px 14px;border-radius:30px;
-  font-family:'Jost',sans-serif;text-transform:uppercase;pointer-events:none;
-  backdrop-filter:blur(2px);white-space:nowrap;
 }.reveal.anim-in{animation:ocUp .9s var(--ease) both}
 .reveal.on{opacity:1;transform:none}
 .reveal.d1{transition-delay:.12s}
@@ -950,14 +943,14 @@ footer .tel.en .tel_ico{width:18px;height:18px;flex:0 0 18px}
 #quick .q_ico svg{width:100%;height:100%;display:block}
 #quick .q_t{display:block!important;font-size:12.5px!important;font-weight:600!important;color:#fff!important;
   text-shadow:0 1px 8px rgba(0,0,0,.55);white-space:nowrap}
-#quick .q_btn:hover{background:linear-gradient(150deg,var(--gold-lt),#a8927a)!important;transform:translateX(-4px)}
+#quick .q_btn:hover{background:linear-gradient(150deg,#ffffff,#dfe7f6)!important;transform:translateX(-4px)}
 #quick .q_btn:hover::before{opacity:0}
-#quick .q_btn:hover .q_ico{color:#14240f!important;transform:scale(1.07)}
-#quick .q_btn:hover .q_t{color:#14240f!important;text-shadow:none}
+#quick .q_btn:hover .q_ico{color:#07193f!important;transform:scale(1.07)}
+#quick .q_btn:hover .q_t{color:#07193f!important;text-shadow:none}
 #quick .q_tel{background:linear-gradient(150deg,#c9b78b 0%,#ab9780 100%)!important}
 #quick .q_tel .q_ico,#quick .q_tel .q_t{color:#14240f!important;text-shadow:none}
 #quick .q_tel::before{background:linear-gradient(180deg,transparent,rgba(20,36,15,.35),transparent)}
-#quick .q_tel:hover{background:linear-gradient(150deg,#fff,#efe9df)!important}
+#quick .q_tel:hover{background:linear-gradient(150deg,#fff8e6,#e8d9b4)!important}
 @media (max-width:1081px){
   #quick{top:auto!important;bottom:calc(152px + env(safe-area-inset-bottom))!important;transform:none!important;
     border-radius:12px 0 0 12px}
@@ -1016,53 +1009,71 @@ body{padding-bottom:80px}
   .rb_submit{flex:1 1 104px;height:40px;margin-left:auto;padding:0 16px;font-size:13.5px}
 }
 
-/* ---------- 첫 화면 배너(팝업) : 2026 선착순 분양 ---------- */
-.popup{z-index:700!important;bottom:calc(80px + 20px)!important;width:304px!important;padding:0!important;
-  background:transparent!important;border:0!important;box-shadow:0 24px 60px rgba(0,0,0,.45)!important}
-.promo{position:relative;padding:26px 22px 24px;border-radius:3px 3px 0 0;overflow:hidden;
-  background:linear-gradient(160deg,#0b1f4f 0%,#07193f 52%,#040d24 100%);
-  border:1px solid rgba(197,178,132,.28);border-bottom:0}
-.promo::before{content:'';position:absolute;right:-58px;top:-58px;width:170px;height:170px;border-radius:50%;
-  background:radial-gradient(circle,rgba(197,178,132,.20),rgba(197,178,132,0) 68%)}
-.pr_tags{position:relative;display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
-.pr_tag{font-family:'Jost','Pretendard',sans-serif;font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;
-  color:#14240f;background:var(--gold-lt);padding:5px 9px;border-radius:2px;font-weight:600}
-.pr_tag--line{background:transparent;color:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.22);font-weight:400}
-.pr_date{position:relative;display:flex;align-items:baseline;gap:1px;margin:0 0 4px;font-family:'Jost',sans-serif;
-  font-size:40px;line-height:1;font-weight:600;color:#fff;letter-spacing:-.01em}
-.pr_date i{font-style:normal;color:var(--gold);padding:0 2px;font-weight:400}
-.pr_ttl{position:relative;margin:0 0 14px;font-size:19px;font-weight:600;letter-spacing:-.04em;color:#fff}
-.pr_desc{position:relative;margin:0 0 20px;font-size:12.5px;line-height:1.85;color:rgba(255,255,255,.82);font-weight:300}
-.pr_desc em{font-style:normal;color:var(--gold-lt);font-weight:500}
-.pr_btn{position:relative;display:block;text-align:center;padding:14px 10px;background:var(--gold);color:#14240f;
-  font-size:14px;font-weight:600;letter-spacing:-.02em;text-decoration:none;border-radius:2px;transition:.25s}
+/* ---------- 첫 화면 배너(팝업) : 화면 중앙 정렬 + 꽉찬 레이아웃 ---------- */
+.popup{z-index:700!important;left:50%!important;right:auto!important;bottom:calc(80px + 22px)!important;
+  transform:translateX(-50%)!important;width:min(432px,calc(100vw - 36px))!important;
+  padding:0!important;background:transparent!important;border:0!important;
+  box-shadow:0 26px 66px rgba(0,0,0,.5)!important}
+.popup.hide{transform:translateX(-50%) translateY(20px)!important}
+.promo{position:relative;padding:32px 30px 28px;border-radius:4px 4px 0 0;overflow:hidden;
+  background:linear-gradient(160deg,#0b204f 0%,#07193f 52%,#040d24 100%);
+  border:1px solid rgba(197,178,132,.30);border-bottom:0}
+.promo::before{content:'';position:absolute;right:-64px;top:-64px;width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(197,178,132,.22),rgba(197,178,132,0) 68%)}
+.promo::after{content:'';position:absolute;left:0;right:0;top:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.8}
+.pr_text{position:relative}
+.pr_tags{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 18px}
+.pr_tag{font-family:'Jost','Pretendard',sans-serif;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;
+  color:#14240f;background:var(--gold-lt);padding:6px 11px;border-radius:2px;font-weight:700}
+.pr_tag--line{background:transparent;color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.26);font-weight:400}
+.pr_date{display:flex;align-items:baseline;gap:1px;margin:0 0 6px;font-family:'Jost',sans-serif;
+  font-size:52px;line-height:1;font-weight:700;color:#fff;letter-spacing:-.02em}
+.pr_date i{font-style:normal;color:var(--gold);padding:0 3px;font-weight:400}
+.pr_ttl{margin:0 0 18px;font-size:25px;font-weight:700;letter-spacing:-.045em;color:#fff;line-height:1.25}
+.pr_desc{margin:0;font-size:14.5px;line-height:1.9;color:rgba(255,255,255,.86);font-weight:300}
+.pr_desc em{font-style:normal;color:var(--gold-lt);font-weight:600}
+.pr_actions{position:relative;margin-top:26px;display:flex;flex-direction:column;gap:9px}
+.pr_btn{display:block;text-align:center;padding:17px 10px;background:var(--gold);color:#14240f;
+  font-size:15.5px;font-weight:700;letter-spacing:-.02em;text-decoration:none;border-radius:3px;transition:.25s}
 .pr_btn:hover{background:#fff;color:#111}
-.pr_tel{position:relative;display:flex;align-items:center;justify-content:center;gap:7px;margin-top:8px;padding:11px 10px;
-  border:1px solid rgba(255,255,255,.24);border-radius:2px;color:#fff;text-decoration:none;font-size:12px;transition:.25s}
-.pr_tel span{display:inline-flex;width:14px;height:14px;flex:0 0 14px;color:var(--gold-lt);transform-origin:50% 60%;
+.pr_tel{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 10px;
+  border:1px solid rgba(255,255,255,.28);border-radius:3px;color:#fff;text-decoration:none;font-size:13.5px;transition:.25s}
+.pr_tel span{display:inline-flex;width:16px;height:16px;flex:0 0 16px;color:var(--gold-lt);transform-origin:50% 60%;
   animation:telRing 3.4s ease-in-out infinite}
 .pr_tel span svg{width:100%;height:100%;display:block}
-.pr_tel b{font-family:'Jost',sans-serif;font-size:15px;letter-spacing:.02em}
-.pr_tel:hover{background:rgba(255,255,255,.12)}
-.popup .bt{margin-top:0!important;background:rgba(6,16,38,.96)!important;border:1px solid rgba(197,178,132,.22)!important;
-  border-top:0!important;padding:10px 12px!important;color:rgba(255,255,255,.72)!important;border-radius:0 0 3px 3px}
-.popup .bt label{color:rgba(255,255,255,.72)!important;font-size:12px!important}
-.popup .bt input[type=checkbox]{accent-color:#ab9780;width:13px;height:13px}
-.popup .btn-close{color:var(--gold-lt)!important;font-size:12.5px!important;text-decoration:none;position:relative;z-index:2;padding:3px 5px}
-.popup-m{z-index:760!important;bottom:calc(132px + 10px)!important}
-.popup-m .sheet{background:transparent!important;border:0!important;border-radius:3px!important;
-  box-shadow:0 22px 54px rgba(0,0,0,.5)!important;overflow:visible!important}
-.promo--m{padding:22px 18px 20px}
-.promo--m .pr_date{font-size:36px}
-.promo--m .pr_ttl{font-size:17px}
-.promo--m .pr_desc{font-size:12px;margin-bottom:16px}
-.promo--m .pr_btn{padding:13px 10px;font-size:13.5px}
-.promo--m .pr_tel{padding:10px}
-.popup-m .bt{background:rgba(6,16,38,.96)!important;border:1px solid rgba(197,178,132,.22)!important;border-top:0!important;
-  border-radius:0 0 3px 3px!important;padding:11px 13px!important}
-.popup-m .bt label{color:rgba(255,255,255,.72)!important}
-.popup-m .btn-close{color:var(--gold-lt)!important;position:relative;z-index:2}
+.pr_tel b{font-family:'Jost',sans-serif;font-size:17px;letter-spacing:.02em}
+.pr_tel:hover{background:rgba(255,255,255,.14)}
+
+/* 이미지 배너 슬롯 : src 가 채워지면 이미지 우선, 텍스트는 자동 숨김 */
+.pr_img{display:block;width:100%;height:auto;border-radius:3px}
+.pr_img[hidden]{display:none!important}
+.promo.has_img{padding:14px 14px 0}
+.promo.has_img .pr_img{margin-bottom:0}
+.promo.has_img .pr_text{display:none!important}
+.promo.has_img .pr_actions{padding:0 2px 2px}
+
+.popup .bt{margin-top:0!important;background:rgba(6,16,38,.97)!important;border:1px solid rgba(197,178,132,.24)!important;
+  border-top:0!important;padding:12px 16px!important;color:rgba(255,255,255,.78)!important;border-radius:0 0 4px 4px}
+.popup .bt label{color:rgba(255,255,255,.78)!important;font-size:13px!important;cursor:pointer}
+.popup .bt input[type=checkbox]{accent-color:#ab9780;width:15px;height:15px}
+.popup .btn-close{color:var(--gold-lt)!important;font-size:13.5px!important;text-decoration:none;position:relative;z-index:2;padding:4px 6px}
 @media (max-width:1081px){.popup{display:none!important}}
+
+/* 모바일 팝업 배너 */
+.popup-m{z-index:760!important;bottom:calc(132px + 10px)!important;left:0!important;right:0!important}
+.popup-m .sheet{max-width:432px!important;margin:0 auto!important;background:transparent!important;border:0!important;
+  border-radius:4px!important;box-shadow:0 24px 58px rgba(0,0,0,.52)!important;overflow:visible!important}
+.promo--m{padding:26px 22px 22px}
+.promo--m .pr_date{font-size:42px}
+.promo--m .pr_ttl{font-size:21px}
+.promo--m .pr_desc{font-size:13px}
+.promo--m .pr_btn{padding:15px 10px;font-size:14.5px}
+.promo--m .pr_tel{padding:12px}
+.popup-m .bt{background:rgba(6,16,38,.97)!important;border:1px solid rgba(197,178,132,.24)!important;border-top:0!important;
+  border-radius:0 0 4px 4px!important;padding:12px 14px!important}
+.popup-m .bt label{color:rgba(255,255,255,.78)!important;font-size:12.5px!important}
+.popup-m .btn-close{color:var(--gold-lt)!important;position:relative;z-index:2}
 @media (min-width:1082px){.popup-m{display:none!important}}
 @media (prefers-reduced-motion:reduce){.pr_tel span{animation:none!important}}
 
@@ -1115,6 +1126,83 @@ body{padding-bottom:80px}
   .reg_agree{align-items:flex-start}
 }
 
+/* ============================================================
+   [가독성] 본문 텍스트 확대 + 제목 임팩트 강화
+   ============================================================ */
+.subVisual .text .main{font-size:clamp(34px,4.8vw,64px)!important;font-weight:600!important;letter-spacing:-.035em!important}
+.subVisual .text .slogan{font-size:17px!important}
+.subVisual .customer_info .customer_btn{padding:11px 22px!important;font-size:15.5px!important;font-weight:600!important}
+.subVisual .customer_info .tel{font-size:17px!important;font-weight:600!important}
+.top_text .name{font-size:15px!important}
+.imageBox .text .title,.imageBox .text h3.title{font-size:15.5px!important;font-weight:600!important}
+.imageBox .text .desc{font-size:clamp(16px,1.36vw,18.5px)!important;line-height:1.95!important;color:#4a4a4a!important}
+.imgaeBox .title p{position:relative;font-size:clamp(25px,2.8vw,38px)!important;font-weight:600!important;
+  letter-spacing:-.04em!important;line-height:1.35!important;padding-bottom:18px}
+.imgaeBox .title p::after{content:'';position:absolute;left:0;bottom:0;width:56px;height:2px;background:var(--gold)}
+.imgaeBox .title p.point{font-size:14.5px!important;font-weight:500!important;padding-bottom:0}
+.imgaeBox .title p.point::after{display:none}
+.imgaeBox .text{font-size:clamp(16px,1.32vw,18.5px)!important;line-height:1.95!important;color:#4a4a4a!important}
+.subWrap .info_con{font-size:14px!important;line-height:1.95!important;color:#7d7d7d!important}
+.info_label{font-size:16.5px!important}
+.info_value{font-size:16.5px!important;color:#4a4a4a!important}
+.info_value .unit{font-size:14.5px!important}
+.map_box .map_info .title{font-size:22px!important;font-weight:700!important;letter-spacing:-.03em!important}
+.map_box .map_info .info{font-size:16.5px!important;color:#4a4a4a!important}
+.subWrap .map_link .btn{font-size:13.5px!important;padding:10px 17px!important}
+.seminar_wrap .title{font-size:21px!important;font-weight:700!important;letter-spacing:-.035em!important}
+.seminar_wrap h4{font-size:15px!important;color:#555!important}
+.seminar_wrap h5{font-size:14px!important;line-height:1.9!important}
+.seminar_wrap table{font-size:14.5px!important}
+.seminar_wrap table th,.seminar_wrap table td{padding:15px 12px!important}
+.box_text{font-size:14px!important;line-height:2!important}
+.empty_box .empty_t{font-size:18px!important}
+.empty_box .empty_d{font-size:15px!important}
+.news_list_new .title{font-size:19px!important;font-weight:600!important}
+.news_list_new .media{font-size:14px!important}
+.news_list_new .explain{font-size:14.5px!important;line-height:1.9!important}
+.tabmenu2 li,.tabmenu li{font-size:14.5px!important}
+.paging li{font-size:14px!important}
+.movie_empty{font-size:15px!important}
+/* 관심고객등록 폼 */
+.reg_eyebrow{font-size:12.5px!important}
+.reg_h{position:relative;font-size:clamp(27px,2.9vw,38px)!important;font-weight:700!important;
+  letter-spacing:-.045em!important;padding-bottom:16px}
+.reg_h::after{content:'';position:absolute;left:50%;bottom:0;width:56px;height:2px;background:var(--gold);transform:translateX(-50%)}
+.reg_sub{font-size:15px!important;color:#7a7a7a!important}
+.reg_label{font-size:15.5px!important;font-weight:600!important}
+.reg_input{font-size:15.5px!important;height:50px!important}
+.reg_chips .chip{font-size:14.5px!important;padding:12px 18px!important}
+.reg_chk{font-size:15px!important}
+.reg_more{font-size:13.5px!important}
+.reg_terms{font-size:14px!important;line-height:1.95!important}
+.reg_terms h4{font-size:15px!important}
+.reg_terms table{font-size:13.5px!important}
+.seminar_wrap .reg_form .btn_submit{font-size:16px!important;padding:18px 40px!important}
+/* 하단 고정바 */
+.rb_name{font-size:14px!important}
+.rb_tel{font-size:12px!important}
+.rb_tel a{font-size:15.5px!important}
+.rb_in{font-size:14.5px!important}
+.rb_chk{font-size:13px!important}
+.rb_view{font-size:13px!important}
+.rb_submit{font-size:14.5px!important}
+@media (max-width:1081px){
+  .subVisual .text .main{font-size:30px!important}
+  .imageBox .text .desc,.imgaeBox .text{font-size:15px!important}
+  .imgaeBox .title p{font-size:22px!important}
+  .info_label,.info_value{font-size:15px!important}
+  .subWrap .info_con{font-size:13px!important}
+  .seminar_wrap table{font-size:13px!important}
+  .reg_h{font-size:25px!important}
+  .reg_sub{font-size:13.5px!important}
+  .reg_label,.reg_input{font-size:14.5px!important}
+  .reg_terms{font-size:13px!important}
+  .map_box .map_info .title{font-size:19px!important}
+  .map_box .map_info .info{font-size:14.5px!important}
+  .news_list_new .title{font-size:17px!important}
+  .popup-m .sheet{max-width:calc(100vw - 28px)!important}
+}
+
 
 </style>
 </head>
@@ -1149,9 +1237,8 @@ body{padding-bottom:80px}
     <nav id="nav" aria-label="주메뉴">
       <ul class="gnb">
           <li data-sub="0" data-spy-group="0"><a data-spy="p-intro-index" href="#p-intro-index">사업안내</a></li>
-          <li data-sub="1" data-spy-group="1"><a data-spy="p-supply-schedule" href="#p-supply-schedule">분양안내</a></li>
-          <li data-sub="2" data-spy-group="2"><a data-spy="p-danji-danji_design" href="#p-danji-danji_design">단지안내</a></li>
-          <li data-sub="3" data-spy-group="3"><a data-spy="p-type-type_info" href="#p-type-type_info">세대안내</a></li>
+          <li data-sub="1" data-spy-group="2"><a data-spy="p-danji-danji_design" href="#p-danji-danji_design">단지안내</a></li>
+          <li data-sub="2" data-spy-group="3"><a data-spy="p-type-type_info" href="#p-type-type_info">세대안내</a></li>
           <li class="gnb_contact_li" data-spy-group="6"><a data-spy="p-customer-customer" href="#p-customer-customer" class="gnb_contact">관심고객등록</a></li>
         </ul>
     </nav>
@@ -1172,10 +1259,6 @@ body{padding-bottom:80px}
             <li><a data-spy="p-intro-map" href="#p-intro-map">오시는길</a></li>
         </ul></li>
         
-        <li><ul class="sub-menu">
-            <li><a data-spy="p-supply-schedule" href="#p-supply-schedule">분양일정</a></li>
-            <li><a data-spy="p-supply-supply_info" href="#p-supply-supply_info">공급안내</a></li>
-        </ul></li>
         
         <li><ul class="sub-menu">
             <li><a data-spy="p-danji-danji_design" href="#p-danji-danji_design">단지설계</a></li>
@@ -1212,8 +1295,6 @@ body{padding-bottom:80px}
     <ul>
       <li class="menu_head"><a><span>사업안내</span></a><img src="images/ico_arrow_down_m.png" class="ico_arrow" alt=""></li>
       <div class="menu_body"><a data-spy="p-intro-index" href="#p-intro-index">사업개요</a><a data-spy="p-intro-location" href="#p-intro-location">입지환경</a><a data-spy="p-intro-premium" href="#p-intro-premium">프리미엄</a><a data-spy="p-intro-map" href="#p-intro-map">오시는길</a></div>
-      <li class="menu_head"><a><span>분양안내</span></a><img src="images/ico_arrow_down_m.png" class="ico_arrow" alt=""></li>
-      <div class="menu_body"><a data-spy="p-supply-schedule" href="#p-supply-schedule">분양일정</a><a data-spy="p-supply-supply_info" href="#p-supply-supply_info">공급안내</a></div>
       <li class="menu_head"><a><span>단지안내</span></a><img src="images/ico_arrow_down_m.png" class="ico_arrow" alt=""></li>
       <div class="menu_body"><a data-spy="p-danji-danji_design" href="#p-danji-danji_design">단지설계</a><a data-spy="p-danji-danji_layout" href="#p-danji-danji_layout">단지배치도</a><a data-spy="p-danji-dong_layout" href="#p-danji-dong_layout">동·호배치도</a><a data-spy="p-danji-landscape" href="#p-danji-landscape">조경설계</a><a data-spy="p-danji-community" href="#p-danji-community">커뮤니티</a></div>
       <li class="menu_head"><a><span>세대안내</span></a><img src="images/ico_arrow_down_m.png" class="ico_arrow" alt=""></li>
@@ -1227,13 +1308,22 @@ body{padding-bottom:80px}
 
 <!-- ===== popup ===== -->
 <div class="popup" id="popup">
-  <div class="promo">
-    <p class="pr_tags"><span class="pr_tag">선착순 분양</span><span class="pr_tag pr_tag--line">2026 GRAND OPEN</span></p>
-    <p class="pr_date">2026<i>.</i>10<i>.</i>06</p>
-    <p class="pr_ttl">선착순 분양 시작</p>
-    <p class="pr_desc">선착순으로 <em>동·호 지정</em>을 시작하기 때문에<br>미리 <em>관심고객등록</em>을 통해 <em>방문예약</em> 부탁드립니다.</p>
-    <a class="pr_btn" href="#p-customer-customer">관심고객등록 하기</a>
-    <a class="pr_tel" href="tel:1866-2766"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>전화 상담 <b>1866-2766</b></a>
+  <div class="promo" id="promoBox">
+    <!-- ▼▼ 이미지 배너 교체 지점 ▼▼
+         아래 img 의 src 에 이미지 경로(예: images/banner.jpg)를 넣으면
+         이미지가 우선 표시되고 텍스트(날짜·제목·문구)는 자동으로 숨겨집니다.
+         관심고객등록 / 전화상담 버튼과 오늘 하루 열지 않기·닫기는 그대로 유지됩니다. -->
+    <img class="pr_img" id="promoImg" alt="선착순 분양 안내" hidden>
+    <div class="pr_text">
+      <p class="pr_tags"><span class="pr_tag">선착순 분양</span><span class="pr_tag pr_tag--line">2026 GRAND OPEN</span></p>
+      <p class="pr_date">2026<i>.</i>10<i>.</i>06</p>
+      <p class="pr_ttl">선착순 분양 시작</p>
+      <p class="pr_desc">선착순으로 <em>동·호 지정</em>을 시작하기 때문에<br>미리 <em>관심고객등록</em>을 통해 <em>방문예약</em> 부탁드립니다.</p>
+    </div>
+    <div class="pr_actions">
+      <a class="pr_btn" href="#p-customer-customer">관심고객등록 하기</a>
+      <a class="pr_tel" href="tel:1866-2766"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>전화 상담 <b>1866-2766</b></a>
+    </div>
   </div>
   <div class="bt">
     <label><input type="checkbox" id="popupChk"> 오늘 하루 열지 않기</label>
@@ -1268,13 +1358,18 @@ body{padding-bottom:80px}
 <!-- ===== 모바일 전용 팝업 (원본 MB_POP 이식) ===== -->
 <div class="popup-m" id="popupM">
   <div class="sheet">
-    <div class="promo promo--m">
-        <p class="pr_tags"><span class="pr_tag">선착순 분양</span><span class="pr_tag pr_tag--line">2026 GRAND OPEN</span></p>
-        <p class="pr_date">2026<i>.</i>10<i>.</i>06</p>
-        <p class="pr_ttl">선착순 분양 시작</p>
-        <p class="pr_desc">선착순으로 <em>동·호 지정</em>을 시작하기 때문에<br>미리 <em>관심고객등록</em>을 통해 <em>방문예약</em> 부탁드립니다.</p>
-        <a class="pr_btn" href="#p-customer-customer">관심고객등록 하기</a>
-        <a class="pr_tel" href="tel:1866-2766"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>전화 상담 <b>1866-2766</b></a>
+    <div class="promo promo--m" id="promoBoxM">
+        <img class="pr_img" id="promoImgM" alt="선착순 분양 안내" hidden>
+        <div class="pr_text">
+          <p class="pr_tags"><span class="pr_tag">선착순 분양</span><span class="pr_tag pr_tag--line">2026 GRAND OPEN</span></p>
+          <p class="pr_date">2026<i>.</i>10<i>.</i>06</p>
+          <p class="pr_ttl">선착순 분양 시작</p>
+          <p class="pr_desc">선착순으로 <em>동·호 지정</em>을 시작하기 때문에<br>미리 <em>관심고객등록</em>을 통해 <em>방문예약</em> 부탁드립니다.</p>
+        </div>
+        <div class="pr_actions">
+          <a class="pr_btn" href="#p-customer-customer">관심고객등록 하기</a>
+          <a class="pr_tel" href="tel:1866-2766"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>전화 상담 <b>1866-2766</b></a>
+        </div>
       </div>
 <div class="bt">
       <label><input type="checkbox" id="popupMChk"> 오늘 하루 열지 않기</label>
@@ -1605,20 +1700,20 @@ body{padding-bottom:80px}
         <div class="content">
           <div class="top_text mo"><span class="line"></span><p class="name"><span>PRESTIGE LOCATION</span></p></div>
           <ul class="imageBox">
-            <li class="mo"><div class="image"><img src="images/sub_location_img_02.jpg" alt="OVER THE NATURE"><p class="img_cut">이미지컷</p></div>
+            <li class="mo"><div class="image"><img src="images/sub_location_img_02.jpg" alt="OVER THE NATURE"></div>
               <div class="text"><h3 class="title"><span>OVER THE NATURE</span></h3>
                 <p class="desc"><span>그랜드파크<span class="small">(예정)</span>와 남항근린공원,<br> 갯골유수지, 서해바다 등 다양한 자연 인프라</span></p></div></li>
-            <li class="mo"><div class="image"><img src="images/sub_location_img_04.jpg" alt="OVER THE EDU"><p class="img_cut">이미지컷</p></div>
+            <li class="mo"><div class="image"><img src="images/sub_location_img_04.jpg" alt="OVER THE EDU"></div>
               <div class="text"><h3 class="title"><span>OVER THE EDU</span></h3>
                 <p class="desc"><span>인접한 용현학익2초<span class="small">(예정)</span>와 바로 앞 용현학익중<span class="small">(예정)</span>,<br> 고등학교<span class="small">(계획)</span> 등 걸어서 등교하는 맘편한 학세권</span></p></div></li>
-            <li class="mo"><div class="image"><img src="images/sub_location_img_01.jpg" alt="OVER THE TRAFFIC"><p class="img_cut">이미지컷</p></div>
+            <li class="mo"><div class="image"><img src="images/sub_location_img_01.jpg" alt="OVER THE TRAFFIC"></div>
               <div class="text"><h3 class="title"><span>OVER THE TRAFFIC</span></h3>
                 <p class="desc"><span>학익역<span class="small">(예정)</span>, KTX송도역<span class="small">(예정)</span>, GTX-B청학역<span class="small">(예정)</span>,<br> 능해IC-제2경인고속도로 등의 쾌속 광역교통망</span></p></div></li>
-            <li class="mo"><div class="image"><img src="images/sub_location_img_03.jpg" alt="OVER THE LIFE"><p class="img_cut">이미지컷</p></div>
+            <li class="mo"><div class="image"><img src="images/sub_location_img_03.jpg" alt="OVER THE LIFE"></div>
               <div class="text"><h3 class="title"><span>OVER THE LIFE</span></h3>
                 <p class="desc"><span>13,000여 세대 시티오씨엘 상권,<br> 인하대병원 등을 누리는 편리한 중심생활권</span></p></div></li>
           </ul>
-          <div class="image main mo"><img src="images/sub_location_main.jpg" alt="입지환경 종합도"><p class="img_cut">이미지컷</p></div>
+          <div class="image main mo"><img src="images/sub_location_main.jpg" alt="입지환경 종합도"></div>
         </div>
         <div class="info" data-aos>
           <p class="info_con">※ 상기 CG 및 이미지는 소비자의 이해를 돕기 위한 것으로 실제와 차이가 있습니다.</p>
@@ -1640,28 +1735,28 @@ body{padding-bottom:80px}
       <div class="container"><div class="inner">
         <ul class="imgaeBox">
           <li class="mo"><div class="title"><p><span>파크뷰와 오션뷰를 모두 소유하는 자리</span></p><p class="point"><span>LANDSCAPE</span></p></div>
-            <div class="image"><img src="images/sub_premium_img_01.jpg" alt="LANDSCAPE"><p class="img_cut">이미지컷</p></div>
+            <div class="image"><img src="images/sub_premium_img_01.jpg" alt="LANDSCAPE"></div>
             <div class="text"><span>도심 속 공원 조망과 서해 바다 조망을<br> 모두 갖춘 독보적 입지<span class="small">(일부세대 제외)</span></span></div></li>
           <li class="mo"><div class="title"><p><span>자연과 어우러진 그랜드 에코라이프</span></p><p class="point"><span>REFRESH</span></p></div>
-            <div class="image"><img src="images/sub_premium_img_02.jpg" alt="REFRESH"><p class="img_cut">이미지컷</p></div>
+            <div class="image"><img src="images/sub_premium_img_02.jpg" alt="REFRESH"></div>
             <div class="text"><span>단지 앞에 위치한 그랜드파크<span class="small">(예정)</span>,<br class="MB_V"> 공원형 녹지를 갖춘 쾌적한 단지,<br class="PC_V"> 인근 남항근린공원, <br class="MB_V">갯골유수지 등 자연으로 둘러싸인 청정 주거환경</span></div></li>
           <li class="mo"><div class="title"><p><span>일상의 시간을 앞당기는 광역 교통망</span></p><p class="point"><span>MOVEMENT</span></p></div>
-            <div class="image"><img src="images/sub_premium_img_03.jpg" alt="MOVEMENT"><p class="img_cut">이미지컷</p></div>
+            <div class="image"><img src="images/sub_premium_img_03.jpg" alt="MOVEMENT"></div>
             <div class="text"><span>학익역<span class="small">(예정)</span>과 KTX송도역<span class="small">(예정)</span>, GTX-B청학역<span class="small">(예정)</span>,<br> 능해IC-제2경인고속도로 등 출퇴근 <br class="MB_V">시간을 단축하는 쾌속 교통망</span></div></li>
           <li class="mo"><div class="title"><p><span>초·중·고가 모인 안심 교육환경</span></p><p class="point"><span>SCHOOL</span></p></div>
-            <div class="image"><img src="images/sub_premium_img_04.jpg" alt="SCHOOL"><p class="img_cut">이미지컷</p></div>
+            <div class="image"><img src="images/sub_premium_img_04.jpg" alt="SCHOOL"></div>
             <div class="text"><span>초등학교<span class="small">(예정)</span>, 중학교<span class="small">(예정)</span>, 고등학교<span class="small">(계획)</span>가<br> 모두 가까이 위치한 안정적인 통학환경</span></div></li>
           <li class="mo"><div class="title"><p><span>다양한 삶을 수용하는 평면 구성</span></p><p class="point"><span>PLAN</span></p></div>
-            <div class="image"><img src="images/sub_premium_img_05.jpg" alt="PLAN"><p class="img_cut">이미지컷</p></div>
+            <div class="image"><img src="images/sub_premium_img_05.jpg" alt="PLAN"></div>
             <div class="text"><span>라이프스타일과 가족의 형태에 따라<br> 선택할 수 있는 다채로운 평형 제공</span></div></li>
           <li class="mo"><div class="title"><p><span>1만 3천여 세대 시티오씨엘 최대 단지</span></p><p class="point"><span>SIGNATURE</span></p></div>
-            <div class="image"><img src="images/sub_premium_img_06.jpg" alt="SIGNATURE"><p class="img_cut">이미지컷</p></div>
+            <div class="image"><img src="images/sub_premium_img_06.jpg" alt="SIGNATURE"></div>
             <div class="text"><span>1만 3천여 세대 명품복합도시, 시티오씨엘 내 최대<br> 1,949세대 규모로 완성되는 압도적 대단지</span></div></li>
           <li class="mo"><div class="title"><p><span>편리하고 풍부하게 누리는 생활인프라</span></p><p class="point"><span>INFRA</span></p></div>
-            <div class="image"><img src="images/sub_premium_img_07.jpg" alt="INFRA"><p class="img_cut">이미지컷</p></div>
+            <div class="image"><img src="images/sub_premium_img_07.jpg" alt="INFRA"></div>
             <div class="text"><span>1만 3천여 세대 미니신도시 상권 및 인천뮤지엄파크<span class="small">(예정)</span>,<br> 인하대병원 등 완벽에 가까운 생활환경</span></div></li>
           <li class="mo"><div class="title"><p><span>메이저 3사 공동 시공</span></p><p class="point"><span>SYNERGY</span></p></div>
-            <div class="image"><img src="images/sub_premium_img_08.jpg" alt="SYNERGY"><p class="img_cut">이미지컷</p></div>
+            <div class="image"><img src="images/sub_premium_img_08.jpg" alt="SYNERGY"></div>
             <div class="text"><span>IPARK현대산업개발, 현대건설, 포스코이앤씨까지<br> 국내 대표 건설 3사의 기술력과 노하우가<br class="MB_V"> 집약된 프리미엄 주거 단지</span></div></li>
         </ul>
       </div></div>
@@ -1694,20 +1789,8 @@ body{padding-bottom:80px}
       </div></div>
     </div>
   </section>
-  <section class="page" id="p-supply-schedule" data-title="분양일정">
-    <div class="subVisual"><div class="bg"></div><div class="text"><h2 class="main"><span>분양일정</span></h2></div>
-      <div class="customer_info"><a data-spy="p-customer-customer" href="#p-customer-customer" class="customer_btn">관심고객등록</a></div></div>
-    <div class="subWrap">
-      <div class="container"><div class="inner" data-aos><img src="images/schedule.jpg" class="PC_V" alt="분양일정"><img src="images/schedule_m.jpg" class="MB_V" alt="분양일정"></div></div>
-    </div>
-  </section>
-  <section class="page" id="p-supply-supply_info" data-title="공급안내">
-    <div class="subVisual"><div class="bg"></div><div class="text"><h2 class="main"><span>공급안내</span></h2></div>
-      <div class="customer_info"><a data-spy="p-customer-customer" href="#p-customer-customer" class="customer_btn">관심고객등록</a></div></div>
-    <div class="subWrap">
-      <div class="container"><div class="inner" data-aos><img src="images/supply_info.jpg" alt="공급안내"></div></div>
-    </div>
-  </section>
+  
+  
   
   <section class="page" id="p-danji-danji_design" data-title="단지설계">
     <div class="subVisual"><div class="bg"></div><div class="text"><h2 class="main"><span>단지설계</span></h2></div>
@@ -1844,9 +1927,9 @@ body{padding-bottom:80px}
 
             <div class="reg_terms" id="regTerms" hidden>
               <h4>개인정보 수집, 이용동의</h4>
-              <p>개인정보 수집, 이용하는 자 : (주)디씨알이, 아이파크현대산업개발(주), (주)포애드원, (주)마켓리더</p>
-              <p>개인정보 취급 수탁자 : (주)포애드원, (주)마켓리더</p>
-              <p>※ 아이파크현대산업개발(주)의 위탁을 받아 ㈜포애드원에서 대행하고 있습니다.</p>
+              <p>개인정보 수집, 이용하는 자 : (주)드림박스</p>
+              <p>개인정보 취급 수탁자 : (주)드림박스</p>
+              <p>※ (주)드림박스에서 대행하고 있습니다.</p>
               <table>
                 <colgroup><col style="width:33.33%"><col style="width:33.33%"><col style="width:33.34%"></colgroup>
                 <thead><tr><th>개인정보의 수집/이용항목</th><th>개인정보의 수집/이용목적</th><th>개인정보의 수집/이용기간</th></tr></thead>
@@ -1859,7 +1942,7 @@ body{padding-bottom:80px}
               <table>
                 <colgroup><col style="width:50%"><col style="width:50%"></colgroup>
                 <thead><tr><th>마케팅 정보 활용의 수집주체</th><th>마케팅 정보 활용 이용항목</th></tr></thead>
-                <tbody><tr><td>(주)포애드원<br>(주)마켓리더</td><td>성명, 연락처, 주소</td></tr></tbody>
+                <tbody><tr><td>(주)드림박스</td><td>성명, 연락처, 주소</td></tr></tbody>
               </table>
               <table>
                 <colgroup><col style="width:30%"><col style="width:70%"></colgroup>
@@ -1874,7 +1957,7 @@ body{padding-bottom:80px}
               <table>
                 <colgroup><col style="width:50%"><col style="width:50%"></colgroup>
                 <thead><tr><th>개인정보 취급을 받는자(수탁자)</th><th>개인정보 취급 위탁을 하는 업무 내용</th></tr></thead>
-                <tbody><tr><td>(주)마켓리더</td><td>분양마케팅 업무대행 (안내, 상담, 기타 서비스 등)</td></tr><tr><td>(주)포애드원</td><td>분양 홈페이지 관리 운영</td></tr></tbody>
+                <tbody><tr><td>(주)드림박스</td><td>분양마케팅 업무대행 (안내, 상담, 기타 서비스 등)</td></tr><tr><td>(주)드림박스</td><td>분양 홈페이지 관리 운영</td></tr></tbody>
               </table>
 
               <h4>개인정보 수집 및 이용에 대한 안내</h4>
@@ -2280,6 +2363,20 @@ body{padding-bottom:80px}
   }
   wirePopup('popup', 'closePopup');
   wirePopup('popupM', 'closePopupM');
+
+  /* ---------- 팝업 배너 : 이미지 슬롯 (이미지가 있으면 이미지 우선) ---------- */
+  $$('.promo').forEach(function (box) {
+    var im = box.querySelector('.pr_img');
+    if (!im) return;
+    var src = (im.getAttribute('src') || '').trim();
+    if (src && src.indexOf('@@') === -1) {
+      im.removeAttribute('hidden');
+      box.classList.add('has_img');
+    } else {
+      im.setAttribute('hidden', '');
+      box.classList.remove('has_img');
+    }
+  });
 
   /* ---------- 관심고객등록 (간소화 폼 + 하단 간략바) ---------- */
   function digits(v){return (v||'').replace(/[^0-9]/g,'');}
