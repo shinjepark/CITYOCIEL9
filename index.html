@@ -1291,6 +1291,12 @@ body{padding-bottom:80px}
 .rb_bubble::after{left:50%}
 .rb_bubble.bub_off{display:none!important}
 
+/* 하단바 말풍선 클릭 → 하단바 올리기 (내려가 있을 때만 클릭 가능) */
+.reg_bar.down #rbBubble{pointer-events:auto!important;cursor:pointer}
+.reg_bar.down #rbBubble:active{transform:translateX(-50%) scale(.96)}
+/* 관심고객등록 폼 말풍선은 그대로 클릭 불가 */
+.resv_bubble--form{pointer-events:none!important}
+
 /* PC : 방문예약신청 버튼을 개인정보수집 동의 바로 오른편으로 */
 @media (min-width:1081px){
   .rb_submit{margin-left:10px!important}
@@ -2641,6 +2647,12 @@ footer .top .logo img{filter:none!important}
     window.addEventListener('resize',function(){ if(!mob()&&down){down=false;} sync(); apply(); });
     window.addEventListener('load',sync);
     setTimeout(sync,500); setTimeout(sync,1600);
+    var bub=document.getElementById('rbBubble');
+    if(bub){
+      function raise(){ if(down){ down=false; apply(); } }
+      bub.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); raise(); });
+      bub.addEventListener('touchend',function(e){ e.preventDefault(); e.stopPropagation(); raise(); },{passive:false});
+    }
     if(handle){
       handle.addEventListener('click',function(){down=!down;apply();});
       handle.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();down=!down;apply();}});
@@ -2803,5 +2815,6 @@ footer .top .logo img{filter:none!important}
       </div>
     </div>
   </footer>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
