@@ -4,5 +4,14 @@
 /thankyou.html
   X-Robots-Tag: noindex, nofollow
 
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
 /og_image.jpg
   Cache-Control: public, max-age=86400
+
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
