@@ -1,5 +1,5 @@
-// POST /admin  →  비밀번호 확인 후 조회 / 수정 / 삭제
-// action 없음(기본) = 조회 + 채널별·캠페인별·일자별 집계
+// POST /admin  →  비밀번호 확인 후 조회 / 수정 / 삭제 + 유입 집계
+// action 없음(기본) = 신청 목록 + 채널별·캠페인별·일자별 + 방문 집계·전환율
 // action: "update"  → 이름·연락처·관심평형·유입경로 수정
 // action: "delete"  → 해당 건 삭제
 
@@ -25,11 +25,56 @@ function tally(map, key) {
   map[k] = (map[k] || 0) + 1;
 }
 
-/* {키:건수} → 건수 내림차순 배열 */
+/* [{k,v}...] → 건수 내림차순 */
 function sortDesc(map) {
   return Object.keys(map)
     .map((k) => ({ k, v: map[k] }))
     .sort((a, b) => b.v - a.v || a.k.localeCompare(b.k));
+}
+
+/* 방문 집계 : SQL 집계로 처리 (행 전체를 내려받지 않음) */
+async function visitStats(env) {
+  const empty = {
+    total: 0, unique: 0, today: 0, week: 0, newV: 0,
+    byChannel: [], bySource: [], byDay: [],
+  };
+  try {
+    const today = kstDate(0);
+    const since7 = kstDate(6);
+    const since14 = kstDate(13);
+
+    const t = await env.DB.prepare(
+      "SELECT COUNT(*) c, COUNT(DISTINCT vid) u, SUM(CASE WHEN is_new=1 THEN 1 ELSE 0 END) n FROM visits"
+    ).first();
+
+    const td = await env.DB.prepare("SELECT COUNT(*) c FROM visits WHERE day = ?").bind(today).first();
+    const wk = await env.DB.prepare("SELECT COUNT(*) c FROM visits WHERE day >= ?").bind(since7).first();
+
+    const ch = await env.DB.prepare(
+      "SELECT COALESCE(NULLIF(channel,''),'미상') k, COUNT(*) v, COUNT(DISTINCT vid) u FROM visits GROUP BY k ORDER BY v DESC"
+    ).all();
+
+    const src = await env.DB.prepare(
+      "SELECT COALESCE(NULLIF(utm_source,''),'(UTM 없음)') k, COUNT(*) v FROM visits GROUP BY k ORDER BY v DESC"
+    ).all();
+
+    const day = await env.DB.prepare(
+      "SELECT day k, COUNT(*) v, COUNT(DISTINCT vid) u FROM visits WHERE day >= ? GROUP BY day ORDER BY day"
+    ).bind(since14).all();
+
+    return {
+      total: (t && t.c) || 0,
+      unique: (t && t.u) || 0,
+      newV: (t && t.n) || 0,
+      today: (td && td.c) || 0,
+      week: (wk && wk.c) || 0,
+      byChannel: (ch.results || []).map((r) => ({ k: r.k, v: r.v, u: r.u })),
+      bySource: (src.results || []).map((r) => ({ k: r.k, v: r.v })),
+      byDay: (day.results || []).map((r) => ({ k: r.k, v: r.v, u: r.u })),
+    };
+  } catch (e) {
+    return empty;
+  }
 }
 
 export async function onRequestPost(context) {
@@ -98,12 +143,9 @@ export async function onRequestPost(context) {
     const todayCount = results.filter((r) => (r.created_at || "").slice(0, 10) === today).length;
 
     const since7 = kstDate(6);
-    const weekCount = results.filter((r) => {
-      const d = (r.created_at || "").slice(0, 10);
-      return d >= since7;
-    }).length;
+    const weekCount = results.filter((r) => (r.created_at || "").slice(0, 10) >= since7).length;
 
-    /* 최근 14일 (값 없는 날도 0으로 채움) */
+    /* 최근 14일 (0건인 날도 채움) */
     const days = [];
     for (let i = 13; i >= 0; i--) {
       const d = kstDate(i);
@@ -115,7 +157,28 @@ export async function onRequestPost(context) {
     try {
       const row = await env.DB.prepare("SELECT v FROM stats WHERE k = 'reservations'").first();
       if (row && row.v) reservations = row.v;
-    } catch (e) { /* stats 테이블 없으면 기본값 */ }
+    } catch (e) { /* stats 없으면 기본값 */ }
+
+    /* 방문 집계 + 채널별 전환율 */
+    const vs = await visitStats(env);
+
+    const leadByChannel = {};
+    for (const r of sortDesc(byChannel)) leadByChannel[r.k] = r.v;
+
+    const seen = {};
+    const conv = [];
+    for (const v of vs.byChannel) {
+      seen[v.k] = 1;
+      conv.push({ k: v.k, visits: v.v, uniq: v.u, leads: leadByChannel[v.k] || 0 });
+    }
+    for (const l of sortDesc(byChannel)) {
+      if (!seen[l.k]) conv.push({ k: l.k, visits: 0, uniq: 0, leads: l.v });
+    }
+    conv.sort((a, b) => b.visits - a.visits || b.leads - a.leads);
+    for (const c of conv) c.rate = c.visits > 0 ? +(c.leads / c.visits * 100).toFixed(1) : null;
+
+    const vDayMap = {};
+    for (const d of vs.byDay) vDayMap[d.k] = d.v;
 
     return json({
       ok: true,
@@ -131,6 +194,9 @@ export async function onRequestPost(context) {
         byType: sortDesc(byType),
         byDay: days,
       },
+      visits: vs,
+      conversion: conv,
+      visitLeadByDay: days.map((d) => ({ k: d.k, leads: d.v, visits: vDayMap[d.k] || 0 })),
       rows: results,
     });
   } catch (err) {
