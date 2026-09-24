@@ -48,6 +48,14 @@
   .days{display:flex;align-items:flex-end;gap:6px;height:120px;margin-top:6px}
   .day{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px}
   .day .b{width:100%;background:linear-gradient(180deg,#2f63b8,var(--point));border-radius:4px 4px 0 0;min-height:2px}
+  .day .bb{display:flex;gap:2px;align-items:flex-end;height:88px;width:100%}
+  .day .bb>span{flex:1;border-radius:3px 3px 0 0;min-height:2px}
+  .day .bb .vi{background:linear-gradient(180deg,#9db4d8,#5b7ba8)}
+  .day .bb .ld{background:linear-gradient(180deg,#e0cfa8,var(--gold))}
+  .legend{display:flex;gap:16px;font-size:11.5px;color:#5b6684;margin-bottom:10px}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px}
+  .rate{font-weight:800;color:var(--point)}
+  .rate.zero{color:#b0b7c6;font-weight:600}
   .day .d{font-size:10px;color:#8a93a8}
   .day .n{font-size:11px;font-weight:700;color:var(--point)}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -92,6 +100,20 @@
     <div class="cards" id="cards"></div>
 
     <div class="box">
+      <h2>방문자 유입 분석 <span class="tag">전환율</span></h2>
+      <div class="cards" id="vCards" style="margin-bottom:16px"></div>
+      <div class="tbl" style="box-shadow:none;border:1px solid var(--line)">
+        <table>
+          <thead><tr>
+            <th>유입경로</th><th>방문</th><th>순 방문자</th><th>신청</th><th>전환율</th>
+          </tr></thead>
+          <tbody id="vBody"></tbody>
+        </table>
+      </div>
+      <div class="hint" id="vHint"></div>
+    </div>
+
+    <div class="box">
       <h2>채널별 유입 집계 <span class="tag">광고 성과</span></h2>
       <div class="bars" id="bars"></div>
       <div class="hint" id="barsHint"></div>
@@ -99,7 +121,8 @@
 
     <div class="two">
       <div class="box">
-        <h2>최근 14일 등록 추이</h2>
+        <h2>최근 14일 방문·신청 추이</h2>
+        <div class="legend"><span><i style="background:#5b7ba8"></i>방문</span><span><i style="background:#ab9780"></i>신청</span></div>
         <div class="days" id="days"></div>
       </div>
       <div class="box">
@@ -226,7 +249,8 @@ function apply(res){
   renderCards(res);
   renderBars('bars',stats.byChannel,'barsHint');
   renderBars('typeBars',stats.byType);
-  renderDays(stats.byDay||[]);
+  renderDays(res.visitLeadByDay||[]);
+  renderVisits(res.visits,res.conversion);
   renderTable();
 }
 
@@ -270,14 +294,59 @@ function renderBars(id,list,hintId){
 
 function renderDays(list){
   var box=document.getElementById('days'); if(!box) return;
-  if(!list.length){ box.innerHTML='<div class="hint">데이터가 없습니다.</div>'; return; }
-  var max=Math.max.apply(null,list.map(function(x){return x.v;}))||1;
+  if(!list||!list.length){ box.innerHTML='<div class="hint">데이터가 없습니다.</div>'; return; }
+  var max=1;
+  list.forEach(function(x){ if(x.visits>max)max=x.visits; if(x.leads>max)max=x.leads; });
   box.innerHTML=list.map(function(x){
-    var h=Math.round(x.v/max*88);
-    return '<div class="day"><div class="n">'+(x.v?x.v:'')+'</div>'+
-      '<div class="b" style="height:'+Math.max(2,h)+'px"></div>'+
+    var hv=Math.round(x.visits/max*86), hl=Math.round(x.leads/max*86);
+    return '<div class="day"><div class="n">'+(x.visits?x.visits:'')+'</div>'+
+      '<div class="bb">'+
+        '<span class="vi" style="height:'+Math.max(2,hv)+'px" title="방문 '+x.visits+'"></span>'+
+        '<span class="ld" style="height:'+Math.max(2,hl)+'px" title="신청 '+x.leads+'"></span>'+
+      '</div>'+
       '<div class="d">'+x.k.slice(5).replace('-','/')+'</div></div>';
   }).join('');
+}
+
+function renderVisits(v,conv){
+  v=v||{};
+  var total=v.total||0, uniq=v.unique||0;
+  var leads=allRows.length;
+  var rate=total>0?(leads/total*100):null;
+  var arr=[
+    {n:num(total),l:'총 방문 (세션)'},
+    {n:num(uniq),l:'순 방문자'},
+    {n:num(v.newV),l:'신규 방문자'},
+    {n:num(v.today),l:'오늘 방문'},
+    {n:rate===null?'-':rate.toFixed(1)+'%',l:'전체 전환율'}
+  ];
+  document.getElementById('vCards').innerHTML=arr.map(function(x){
+    return '<div class="card"><div class="n">'+x.n+'</div><div class="l">'+x.l+'</div></div>';}).join('');
+
+  var tb=document.getElementById('vBody'); conv=conv||[];
+  if(!conv.length){
+    tb.innerHTML='<tr><td colspan="5" style="text-align:center;color:#8a93a8;padding:22px">아직 방문 기록이 없습니다.</td></tr>';
+    return;
+  }
+  tb.innerHTML=conv.map(function(c){
+    var r=c.rate;
+    var rt=(c.visits>0)?(r===null?'<span class="rate zero">-</span>':'<span class="rate">'+r.toFixed(1)+'%</span>'):'<span class="rate zero">-</span>';
+    var mark=(c.visits>=10&&r!==null&&r>=3)?' <span style="color:var(--gold);font-size:11px">★</span>':'';
+    return '<tr><td><b>'+esc(c.k)+'</b>'+mark+'</td>'+
+      '<td>'+num(c.visits)+'</td>'+
+      '<td>'+num(c.uniq)+'</td>'+
+      '<td>'+num(c.leads)+'</td>'+
+      '<td>'+rt+'</td></tr>';
+  }).join('');
+
+  var best=conv.filter(function(c){return c.visits>=10&&c.rate!==null;})
+               .sort(function(a,b){return b.rate-a.rate;})[0];
+  var direct=conv.filter(function(c){return /직접유입/.test(c.k);})
+                 .reduce(function(s,c){return s+c.visits;},0);
+  var h='방문 기록은 <b>탭 세션 기준 하루 1회</b> 저장됩니다(새로고침 중복 제외). 검색봇·미리보기 봇은 제외됩니다.';
+  if(direct) h+='<br>UTM 없이 들어온 <b>직접유입 '+num(direct)+'건</b>은 채널을 알 수 없는 방문입니다 — 광고 링크에 UTM을 붙여야 채널별로 갈립니다.';
+  if(best) h+='<br>전환율이 가장 높은 채널: <b>'+esc(best.k)+'</b> ('+best.rate.toFixed(1)+'%, 방문 '+num(best.visits)+' → 신청 '+num(best.leads)+') ★';
+  document.getElementById('vHint').innerHTML=h;
 }
 
 function renderTable(){

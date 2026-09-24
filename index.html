@@ -2653,6 +2653,28 @@ img[width][height]{height:auto}
   }
   function newEventId(){return 'lead_'+Date.now()+'_'+Math.floor(Math.random()*100000);}
 
+  /* ---------- 방문 집계 (하루 1회 · 탭 세션 기준) ---------- */
+  (function(){
+    try{
+      var now=new Date();
+      var day=now.getFullYear()+'-'+('0'+(now.getMonth()+1)).slice(-2)+'-'+('0'+now.getDate()).slice(-2);
+      var key='__oc_visit_'+day;
+      if(sessionStorage.getItem(key)) return;
+      sessionStorage.setItem(key,'1');
+      var vid=localStorage.getItem('__oc_vid'), isNew=0;
+      if(!vid){
+        vid='v_'+Date.now()+'_'+Math.random().toString(36).slice(2,10);
+        try{localStorage.setItem('__oc_vid',vid);}catch(e){}
+        isNew=1;
+      }
+      var s=getSource();
+      fetch('/visit',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({channel:s.channel,utm_source:s.utm_source,utm_medium:s.utm_medium,
+          utm_campaign:s.utm_campaign,referrer:s.referrer,page_url:location.href,vid:vid,is_new:isNew})
+      }).catch(function(){});
+    }catch(e){}
+  })();
+
   var form=$('#cs-reg-form');
   if(form){
     form.addEventListener('submit',function(e){
