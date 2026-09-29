@@ -26,7 +26,9 @@ window.OC_PIXELS = {
 (function () {
   'use strict';
   var P = window.OC_PIXELS || {};
-  var isTY = /thankyou\.html$/i.test(location.pathname);
+  /* 완료페이지 판별 : Cloudflare Pages가 thankyou.html → /thankyou 로 주소를 정리하므로
+     확장자 유무와 무관하게 'thankyou' 경로 전체로 판별해야 함 (2026-09-29 수정) */
+  var isTY = /thankyou/i.test(location.pathname);
 
   function addScript(src) {
     var s = document.createElement('script');
