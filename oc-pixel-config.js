@@ -9,8 +9,8 @@ window.OC_PIXELS = {
   /* 메타(페이스북·인스타그램) : 이벤트 관리자 → 픽셀 ID (숫자 15~16자리) */
   meta: { id: '' },
 
-  /* 구글 : Google Ads 전환 → 전환 ID(AW-XXXXXXXXXX) + 전환 라벨 */
-  google: { id: '', label: '' },
+  /* 구글 : Google Ads 전환 → 전환 ID + 전환 라벨  ★연결완료 (전환 액션: 리드 양식 제출) */
+  google: { id: 'AW-18468156112', label: 'lSrMCKvu8IkdENDlpuZE' },
 
   /* 카카오 : 카카오비즈니스 픽셀&SDK → 픽셀 ID  (ID를 주시면 공식 스크립트로 연결) */
   kakao: { id: '' },
