@@ -45,12 +45,12 @@ export async function onRequestPost(context) {
     ).run();
 
     // 2) 예약 카운트 +1 (84부터 시작)
+    //    UPDATE ... RETURNING 으로 증가와 조회를 한 번의 D1 왕복으로 처리 (속도)
     let count = 84;
     try {
-      await env.DB.prepare("CREATE TABLE IF NOT EXISTS stats (k TEXT PRIMARY KEY, v INTEGER NOT NULL)").run();
-      await env.DB.prepare("INSERT INTO stats (k,v) VALUES ('reservations', 84) ON CONFLICT(k) DO NOTHING").run();
-      await env.DB.prepare("UPDATE stats SET v = v + 1 WHERE k = 'reservations'").run();
-      const row = await env.DB.prepare("SELECT v FROM stats WHERE k = 'reservations'").first();
+      const row = await env.DB.prepare(
+        "UPDATE stats SET v = v + 1 WHERE k = 'reservations' RETURNING v"
+      ).first();
       if (row && row.v) count = row.v;
     } catch (cntErr) { console.error("count error:", cntErr); }
 
@@ -64,15 +64,16 @@ export async function onRequestPost(context) {
       (utm_source ? `🔗 광고: ${utm_source}${utm_medium ? " / " + utm_medium : ""}${utm_campaign ? " / " + utm_campaign : ""}\n` : "") +
       `🕒 ${createdAt} (KST)`;
 
+    //    응답을 기다리지 않고 전송 (waitUntil) — 고객은 저장 즉시 다음 화면으로 넘어감
     try {
-      await fetch(`https://api.telegram.org/bot${env.TG_BOT_TOKEN}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chat_id: env.TG_CHAT_ID, text: msg }),
-      });
-    } catch (tgErr) {
-      console.error("Telegram error:", tgErr);
-    }
+      context.waitUntil(
+        fetch(`https://api.telegram.org/bot${env.TG_BOT_TOKEN}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chat_id: env.TG_CHAT_ID, text: msg }),
+        }).catch(function (tgErr) { console.error("Telegram error:", tgErr); })
+      );
+    } catch (tgErr) { console.error("Telegram error:", tgErr); }
 
     return new Response(JSON.stringify({ ok: true, count }), {
       status: 200,
