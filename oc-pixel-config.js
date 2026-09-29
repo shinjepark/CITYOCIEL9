@@ -12,8 +12,8 @@ window.OC_PIXELS = {
   /* 구글 : Google Ads 전환 → 전환 ID + 전환 라벨  ★연결완료 (전환 액션: 리드 양식 제출) */
   google: { id: 'AW-18468156112', label: 'lSrMCKvu8IkdENDlpuZE' },
 
-  /* 카카오 : 카카오비즈니스 픽셀&SDK → 픽셀 ID  (ID를 주시면 공식 스크립트로 연결) */
-  kakao: { id: '' },
+  /* 카카오 : 카카오비즈니스 픽셀&SDK → 픽셀 ID  ★연결완료 (전환 추적 코드: 시티오씨엘9, 광고계정 분양광고) */
+  kakao: { id: '26297413206949996' },
 
   /* 당근 : 광고계정 픽셀&SDK → 픽셀 ID  ★연결완료 (전환 추적 코드 ID 1790663484175003001) */
   daangn: { id: '1790663484175003001' },
@@ -83,6 +83,17 @@ window.OC_PIXELS = {
     return window.karrotPixel;
   }
 
+  /* --- 카카오 픽셀 (공식 kp.js 로드 후 kakaoPixel로 발화) --- */
+  function kakao(cb) {
+    if (!(P.kakao && P.kakao.id)) return;
+    if (window.kakaoPixel) { cb(); return; }
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://t1.daumcdn.net/kas/static/kp.js';
+    s.onload = function () { if (window.kakaoPixel) cb(); };
+    (document.head || document.documentElement).appendChild(s);
+  }
+
   function start() {
     if (!isTY) {
       /* 메인 페이지 : 채널별 방문(ViewPage/PageView) 기록 */
@@ -92,7 +103,9 @@ window.OC_PIXELS = {
       /* 당근 : 방문 기록 (ViewPage) */
       var dk = daangn();
       if (dk) dk.track('ViewPage');
-      /* 카카오·네이버 공통(방문) 스크립트는 ID 연결 시 이 자리에서 자동 활성화 */
+      /* 카카오 : 방문 기록 (PageView) */
+      kakao(function () { window.kakaoPixel(P.kakao.id).pageView(); });
+      /* 네이버 공통(방문) 스크립트는 ID 연결 시 이 자리에서 자동 활성화 */
     } else {
       /* 신청 완료 페이지 : 채널별 전환 발화 (eid와 함께) */
       var eid = (new URLSearchParams(location.search).get('eid')) || '';
@@ -104,7 +117,12 @@ window.OC_PIXELS = {
       /* 당근 : 페이지뷰 + 신청 완료 전환 (SubmitApplication) */
       var dk2 = daangn();
       if (dk2) { dk2.track('ViewPage'); dk2.track('SubmitApplication'); }
-      /* 카카오(SubmitApplication)·네이버(전환)도 ID 연결 시 이 자리에서 자동 발화 */
+      /* 카카오 : 페이지뷰 + 신청 완료 전환 (Lead) */
+      kakao(function () {
+        var kp = window.kakaoPixel(P.kakao.id);
+        kp.pageView(); kp.lead();
+      });
+      /* 네이버(전환)도 스크립트 연결 시 이 자리에서 자동 발화 */
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({ event: 'oc_conversion', eid: eid });
     }
