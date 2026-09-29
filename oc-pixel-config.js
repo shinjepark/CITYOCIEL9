@@ -119,10 +119,17 @@ window.OC_PIXELS = {
       /* 당근 : 페이지뷰 + 신청 완료 전환 (SubmitApplication) */
       var dk2 = daangn();
       if (dk2) { dk2.track('ViewPage'); dk2.track('SubmitApplication'); }
-      /* 카카오 : 페이지뷰 + 신청 완료 전환 (Lead) */
+      /* 카카오 : 페이지뷰 + 신청 완료 전환 (CompleteRegistration)
+         ※ kp.js(카카오 공식 픽셀)에는 lead() 메서드가 없음 — 2026-09-29 실물 검증(88KB 전수조사, 'lead' 0건).
+            표준 이벤트: pageView·signUp·completeRegistration·purchase·viewContent 등.
+            '등록 완료' 계열인 completeRegistration으로 발화하며, 카카오 캠페인 세팅 때는
+            전환 이벤트로 "회원가입(CompleteRegistration)"을 선택해야 이 신호가 성과로 집계됩니다. */
       kakao(function () {
-        var kp = window.kakaoPixel(P.kakao.id);
-        kp.pageView(); kp.lead();
+        try {
+          var kp = window.kakaoPixel(P.kakao.id);
+          kp.pageView();
+          if (typeof kp.completeRegistration === 'function') kp.completeRegistration();
+        } catch (e) { /* 카카오 픽셀 오류가 다른 채널 발화를 끊지 않도록 */ }
       });
       /* 네이버(전환)도 스크립트 연결 시 이 자리에서 자동 발화 */
       window.dataLayer = window.dataLayer || [];
