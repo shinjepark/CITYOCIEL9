@@ -113,9 +113,7 @@ window.OC_PIXELS = {
       var eid = (new URLSearchParams(location.search).get('eid')) || '';
       var fb2 = meta();
       if (fb2) fb2('track', 'Lead', { event_id: eid });
-      if (gtagInit() && P.google.label) {
-        window.gtag('event', 'conversion', { send_to: P.google.id + '/' + P.google.label });
-      }
+      /* 구글 전환은 thankyou.html에 삽입된 구글 공식 스니펫이 담당 (이중 발화 방지 — 2026-09-30) */
       /* 당근 : 페이지뷰 + 신청 완료 전환 (SubmitApplication) */
       var dk2 = daangn();
       if (dk2) { dk2.track('ViewPage'); dk2.track('SubmitApplication'); }
