@@ -2347,9 +2347,18 @@ img[width][height]{height:auto}
       pop.classList.add('hide');
     });
     var imgs = $$('.slide img', pop), cur = 0;
+    imgs.forEach(function (im) {
+      if (im.complete && im.naturalWidth === 0) im.dataset.err = '1';
+      im.addEventListener('error', function () { im.dataset.err = '1'; });
+    });
     if (imgs.length > 1 && !reduced) {
       setInterval(function () {
-        imgs[cur].classList.remove('on'); cur = (cur + 1) % imgs.length; imgs[cur].classList.add('on');
+        var ok = imgs.filter(function (im) { return !im.dataset.err; });
+        if (!ok.length) return;
+        var from = ok.find(function (im) { return im.classList.contains('on'); });
+        if (from && ok.length > 1) from.classList.remove('on');
+        cur = (cur + 1) % ok.length;
+        ok[cur].classList.add('on');
       }, 3000);
     }
   }
