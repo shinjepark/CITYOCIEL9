@@ -176,7 +176,7 @@ header#header.solid{background:rgba(0,0,0,.42);border-bottom-color:var(--line-so
 }
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}}
 .popup.hide{opacity:0;transform:translateY(20px);pointer-events:none}
-.popup .slide{position:relative;overflow:hidden;aspect-ratio:320/430}
+.popup .slide{position:relative;overflow:hidden;aspect-ratio:3/4}
 .popup .slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s}
 .popup .slide img.on{opacity:1}
 .popup .bt{display:flex;align-items:center;justify-content:space-between;padding:9px 4px 10px;font-size:12px;color:var(--gray)}
@@ -791,8 +791,8 @@ header#header.h_bl .sub-menu a:hover{color:#111}
   @keyframes pmIn{to{opacity:1;transform:none}}
   .popup-m.hide{display:none}
   .popup-m .sheet{background:#0d0d0d;border:1px solid var(--line-soft);border-radius:14px 14px 0 0;overflow:hidden}
-  .popup-m .slide{position:relative;width:100%;height:58vh;max-height:520px;background:#000}
-  .popup-m .slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .7s var(--ease)}
+  .popup-m .slide{position:relative;width:100%;aspect-ratio:3/4;background:#000}
+  .popup-m .slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s var(--ease)}
   .popup-m .slide img.on{opacity:1}
   .popup-m .bt{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;font-size:12.5px;color:var(--gray);background:#111}
   .popup-m .bt label{display:flex;align-items:center;gap:7px;cursor:pointer}
@@ -1545,6 +1545,7 @@ img[width][height]{height:auto}
        이미지 클릭 시 관심고객등록 화면으로 이동합니다. -->
   <a class="slide" href="#p-customer-customer" aria-label="관심고객등록 하기">
     <img class="on" src="images/event_starbucks.jpg?v=3" alt="모델하우스 예약 후 방문 시 스타벅스 아메리카노 쿠폰 증정" decoding="async">
+    <img src="images/event_starbucks_2.jpg" alt="팝업 이벤트 배너" decoding="async">
   </a>
   <div class="bt">
     <label><input type="checkbox" id="popupChk"> 오늘 하루 열지 않기</label>
@@ -1584,6 +1585,7 @@ img[width][height]{height:auto}
   <div class="sheet">
     <a class="slide" href="#p-customer-customer" aria-label="관심고객등록 하기">
       <img class="on" src="images/event_starbucks.jpg?v=3" alt="모델하우스 예약 후 방문 시 스타벅스 아메리카노 쿠폰 증정" decoding="async">
+      <img src="images/event_starbucks_2.jpg" alt="팝업 이벤트 배너" decoding="async">
     </a>
     <div class="bt">
       <label><input type="checkbox" id="popupMChk"> 오늘 하루 열지 않기</label>
