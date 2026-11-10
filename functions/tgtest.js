@@ -49,6 +49,20 @@ const HINT = {
 };
 
 export async function onRequestGet(context) {
+  // 어떤 예외가 나도 Cloudflare 1101 대신 원인을 화면에 보여줍니다.
+  try {
+    return await handle(context);
+  } catch (e) {
+    return new Response(html(
+      '<h1>진단 페이지 내부 오류</h1>' +
+      '<div class="box bad"><b>아래 내용을 그대로 알려주세요.</b><pre style="white-space:pre-wrap;font-size:12px">' +
+      esc((e && e.stack) || e) + '</pre></div>' +
+      '<p><a class="btn" href="?key=' + KEY + '">← 다시 시도</a></p>'
+    ), { status: 200, headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" } });
+  }
+}
+
+async function handle(context) {
   const { request, env } = context;
   const url = new URL(request.url);
   const key = url.searchParams.get("key") || "";
@@ -173,8 +187,9 @@ export async function onRequestGet(context) {
   }
 
   // ── 3. 방 정보 + 봇 권한
+  const allRooms = [["1번방", room1], ...metaRooms.map((id, i) => [`메타방 ${i + 1}`, id])];
+
   if (me) {
-    const allRooms = [["1번방", room1], ...metaRooms.map((id, i) => [`메타방 ${i + 1}`, id])];
     for (const [label, chatId] of allRooms) {
       if (!chatId) { add(`${label} 확인`, "warn", "설정 안 됨 → 건너뜀"); continue; }
       const c = await tg(token, "getChat", { chat_id: chatId });
